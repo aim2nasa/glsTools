@@ -122,17 +122,12 @@ BOOL CgLinkBudgetDlg::OnInitDialog()
 	if (!LoadValue(_T("7GbpsBwRxSensitivityLevel"), &m_str7GbpsBwRxSensitivityLevel, strInifile)) return FALSE;
 	if (!LoadValue(_T("8GbpsBwRxSensitivityLevel"), &m_str8GbpsBwRxSensitivityLevel, strInifile)) return FALSE;
 	if (!LoadValue(_T("9GbpsBwRxSensitivityLevel"), &m_str9GbpsBwRxSensitivityLevel, strInifile)) return FALSE;
-/*
-	m_fsplCtrl.InsertColumn(0, _T("Frequency(GHz)"), LVCFMT_LEFT,60);
-	m_fsplCtrl.InsertColumn(1, _T("Distance(m)"), LVCFMT_LEFT, 60);
-	m_fsplCtrl.InsertColumn(2, _T("H2O Attenuation"), LVCFMT_LEFT, 60);
-	m_fsplCtrl.InsertColumn(3, _T("FSPL"), LVCFMT_LEFT, 50);
-//*/
+
 	CString str;
-	m_fsplCtrl.InsertColumn(0, _T(""), LVCFMT_LEFT, 100);
+	m_fsplCtrl.InsertColumn(0, _T(""), LVCFMT_LEFT, 110);
 	for (int i = 1; i <= 15; i++) {
 		str.Format(_T("%d"), i);
-		m_fsplCtrl.InsertColumn(i, str, LVCFMT_LEFT, 30);
+		m_fsplCtrl.InsertColumn(i, str, LVCFMT_LEFT, 50);
 	}
 
 	int nItem = m_fsplCtrl.InsertItem(0, _T("Frequency(GHz)"));
