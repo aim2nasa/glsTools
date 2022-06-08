@@ -154,3 +154,18 @@ HCURSOR CgLinkBudgetDlg::OnQueryDragIcon()
 	return static_cast<HCURSOR>(m_hIcon);
 }
 
+void CgLinkBudgetDlg::L(const TCHAR* str, ...)
+{
+	va_list args;
+	va_start(args, str);
+
+	int len = _vsctprintf(str, args) + 1;	//_vscprintf doesn't count terminating '\0'
+	TCHAR* buffer = new TCHAR[len];
+	_vstprintf(buffer, len, str, args);
+	va_end(args);
+
+	m_log.AddString(buffer);
+	delete[](buffer);
+
+	m_log.SetTopIndex(m_log.GetCount() - 1);
+}

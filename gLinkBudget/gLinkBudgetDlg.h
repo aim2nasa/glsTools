@@ -34,4 +34,6 @@ protected:
 
 public:
 	CListBox m_log;
+
+	void L(const TCHAR* str, ...);
 };
