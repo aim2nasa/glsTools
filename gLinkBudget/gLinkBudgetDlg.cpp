@@ -59,6 +59,7 @@ CgLinkBudgetDlg::CgLinkBudgetDlg(CWnd* pParent /*=nullptr*/)
 void CgLinkBudgetDlg::DoDataExchange(CDataExchange* pDX)
 {
 	CDialogEx::DoDataExchange(pDX);
+	DDX_Control(pDX, IDC_LOG_LIST, m_log);
 }
 
 BEGIN_MESSAGE_MAP(CgLinkBudgetDlg, CDialogEx)
