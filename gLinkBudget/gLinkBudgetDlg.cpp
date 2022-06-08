@@ -144,13 +144,13 @@ BOOL CgLinkBudgetDlg::OnInitDialog()
 		m_fsplCtrl.SetItemText(nItem, i, str);
 	}
 
-	nItem = m_fsplCtrl.InsertItem(1, _T("H2O attenuation"));
+	nItem = m_fsplCtrl.InsertItem(2, _T("H2O attenuation"));
 	for (int i = 1; i <= 15; i++) {
 		str.Format(_T("%d"), i);
 		m_fsplCtrl.SetItemText(nItem, i, str);
 	}
 
-	nItem = m_fsplCtrl.InsertItem(1, _T("FSPL"));
+	nItem = m_fsplCtrl.InsertItem(3, _T("FSPL"));
 	for (int i = 1; i <= 15; i++) {
 		str.Format(_T("%d"), i);
 		m_fsplCtrl.SetItemText(nItem, i, str);
