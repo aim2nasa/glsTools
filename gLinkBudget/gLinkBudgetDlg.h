@@ -34,6 +34,21 @@ protected:
 
 public:
 	CListBox m_log;
+	CString m_strFrequency;
+	CString m_strH2OAtten;
+	CString m_strTxOutputPower;
+	CString m_strTxAntennaGain;
+	CString m_strRxAntennaGain;
+	CString m_str1GbpsBwRxSensitivityLevel;
+	CString m_str2GbpsBwRxSensitivityLevel;
+	CString m_str3GbpsBwRxSensitivityLevel;
+	CString m_str4GbpsBwRxSensitivityLevel;
+	CString m_str5GbpsBwRxSensitivityLevel;
+	CString m_str6GbpsBwRxSensitivityLevel;
+	CString m_str7GbpsBwRxSensitivityLevel;
+	CString m_str8GbpsBwRxSensitivityLevel;
+	CString m_str9GbpsBwRxSensitivityLevel;
 
 	void L(const TCHAR* str, ...);
+	BOOL LoadValue(TCHAR* regTagName, CString* pTargetStr, CString fileName);
 };

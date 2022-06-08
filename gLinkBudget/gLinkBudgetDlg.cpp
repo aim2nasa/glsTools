@@ -101,6 +101,26 @@ BOOL CgLinkBudgetDlg::OnInitDialog()
 	SetIcon(m_hIcon, FALSE);		// 작은 아이콘을 설정합니다.
 
 	// TODO: 여기에 추가 초기화 작업을 추가합니다.
+	TCHAR path[256] = { 0, };
+	GetModuleFileName(NULL, path, 256);
+	CString strFolderPath(path);
+	strFolderPath = strFolderPath.Left(strFolderPath.ReverseFind(_T('\\')));
+	CString strInifile = strFolderPath + _T("\\LinkBudget.ini");
+
+	if (!LoadValue(_T("Frequency"), &m_strFrequency, strInifile)) return FALSE;
+	if (!LoadValue(_T("H2OAtten"), &m_strH2OAtten, strInifile)) return FALSE;
+	if (!LoadValue(_T("TxOutputPower"), &m_strTxOutputPower, strInifile)) return FALSE;
+	if (!LoadValue(_T("TxAntennaGain"), &m_strTxAntennaGain, strInifile)) return FALSE;
+	if (!LoadValue(_T("RxAntennaGain"), &m_strRxAntennaGain, strInifile)) return FALSE;
+	if (!LoadValue(_T("1GbpsBwRxSensitivityLevel"), &m_str1GbpsBwRxSensitivityLevel, strInifile)) return FALSE;
+	if (!LoadValue(_T("2GbpsBwRxSensitivityLevel"), &m_str2GbpsBwRxSensitivityLevel, strInifile)) return FALSE;
+	if (!LoadValue(_T("3GbpsBwRxSensitivityLevel"), &m_str3GbpsBwRxSensitivityLevel, strInifile)) return FALSE;
+	if (!LoadValue(_T("4GbpsBwRxSensitivityLevel"), &m_str4GbpsBwRxSensitivityLevel, strInifile)) return FALSE;
+	if (!LoadValue(_T("5GbpsBwRxSensitivityLevel"), &m_str5GbpsBwRxSensitivityLevel, strInifile)) return FALSE;
+	if (!LoadValue(_T("6GbpsBwRxSensitivityLevel"), &m_str6GbpsBwRxSensitivityLevel, strInifile)) return FALSE;
+	if (!LoadValue(_T("7GbpsBwRxSensitivityLevel"), &m_str7GbpsBwRxSensitivityLevel, strInifile)) return FALSE;
+	if (!LoadValue(_T("8GbpsBwRxSensitivityLevel"), &m_str8GbpsBwRxSensitivityLevel, strInifile)) return FALSE;
+	if (!LoadValue(_T("9GbpsBwRxSensitivityLevel"), &m_str9GbpsBwRxSensitivityLevel, strInifile)) return FALSE;
 
 	return TRUE;  // 포커스를 컨트롤에 설정하지 않으면 TRUE를 반환합니다.
 }
@@ -168,4 +188,13 @@ void CgLinkBudgetDlg::L(const TCHAR* str, ...)
 	delete[](buffer);
 
 	m_log.SetTopIndex(m_log.GetCount() - 1);
+}
+
+BOOL CgLinkBudgetDlg::LoadValue(TCHAR* regTagName, CString* pTargetStr, CString fileName)
+{
+	TCHAR strTmp[256];
+	GetPrivateProfileString(_T("reference"), regTagName, _T(""), strTmp, sizeof(strTmp) / sizeof(TCHAR), fileName);
+	if (CString(strTmp).IsEmpty()) return FALSE;
+	*pTargetStr = CString(strTmp);
+	return TRUE;
 }
