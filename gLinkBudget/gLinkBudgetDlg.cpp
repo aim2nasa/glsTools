@@ -60,6 +60,7 @@ void CgLinkBudgetDlg::DoDataExchange(CDataExchange* pDX)
 {
 	CDialogEx::DoDataExchange(pDX);
 	DDX_Control(pDX, IDC_LOG_LIST, m_log);
+	DDX_Control(pDX, IDC_FREE_SPACE_PATH_LOSS_LIST, m_fsplCtrl);
 }
 
 BEGIN_MESSAGE_MAP(CgLinkBudgetDlg, CDialogEx)
@@ -121,6 +122,39 @@ BOOL CgLinkBudgetDlg::OnInitDialog()
 	if (!LoadValue(_T("7GbpsBwRxSensitivityLevel"), &m_str7GbpsBwRxSensitivityLevel, strInifile)) return FALSE;
 	if (!LoadValue(_T("8GbpsBwRxSensitivityLevel"), &m_str8GbpsBwRxSensitivityLevel, strInifile)) return FALSE;
 	if (!LoadValue(_T("9GbpsBwRxSensitivityLevel"), &m_str9GbpsBwRxSensitivityLevel, strInifile)) return FALSE;
+/*
+	m_fsplCtrl.InsertColumn(0, _T("Frequency(GHz)"), LVCFMT_LEFT,60);
+	m_fsplCtrl.InsertColumn(1, _T("Distance(m)"), LVCFMT_LEFT, 60);
+	m_fsplCtrl.InsertColumn(2, _T("H2O Attenuation"), LVCFMT_LEFT, 60);
+	m_fsplCtrl.InsertColumn(3, _T("FSPL"), LVCFMT_LEFT, 50);
+//*/
+	CString str;
+	m_fsplCtrl.InsertColumn(0, _T(""), LVCFMT_LEFT, 100);
+	for (int i = 1; i <= 15; i++) {
+		str.Format(_T("%d"), i);
+		m_fsplCtrl.InsertColumn(i, str, LVCFMT_LEFT, 30);
+	}
+
+	int nItem = m_fsplCtrl.InsertItem(0, _T("Frequency(GHz)"));
+	for (int i = 1; i <= 15; i++) m_fsplCtrl.SetItemText(nItem, i, m_strFrequency);
+
+	nItem = m_fsplCtrl.InsertItem(1, _T("Distance(m)"));
+	for (int i = 1; i <= 15; i++) {
+		str.Format(_T("%d"), i);
+		m_fsplCtrl.SetItemText(nItem, i, str);
+	}
+
+	nItem = m_fsplCtrl.InsertItem(1, _T("H2O attenuation"));
+	for (int i = 1; i <= 15; i++) {
+		str.Format(_T("%d"), i);
+		m_fsplCtrl.SetItemText(nItem, i, str);
+	}
+
+	nItem = m_fsplCtrl.InsertItem(1, _T("FSPL"));
+	for (int i = 1; i <= 15; i++) {
+		str.Format(_T("%d"), i);
+		m_fsplCtrl.SetItemText(nItem, i, str);
+	}
 
 	return TRUE;  // 포커스를 컨트롤에 설정하지 않으면 TRUE를 반환합니다.
 }

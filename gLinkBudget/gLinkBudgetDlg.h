@@ -48,6 +48,7 @@ public:
 	CString m_str7GbpsBwRxSensitivityLevel;
 	CString m_str8GbpsBwRxSensitivityLevel;
 	CString m_str9GbpsBwRxSensitivityLevel;
+	CListCtrl m_fsplCtrl;
 
 	void L(const TCHAR* str, ...);
 	BOOL LoadValue(TCHAR* regTagName, CString* pTargetStr, CString fileName);
