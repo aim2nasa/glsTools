@@ -219,10 +219,21 @@ void CgLinkBudgetDlg::fillFreeSpacePathLoss()
 	for (int i = 1; i <= 15; i++) m_fsplCtrl.SetItemText(nItem, i, m_strFrequency);
 
 	nItem = m_fsplCtrl.InsertItem(1, _T("Distance(m)"));
-	for (int i = 1; i <= 15; i++) {
-		str.Format(_T("%d"), i);
-		m_fsplCtrl.SetItemText(nItem, i, str);
-	}
+	m_fsplCtrl.SetItemText(nItem, 1, _T("0.1"));
+	m_fsplCtrl.SetItemText(nItem, 2, _T("0.2"));
+	m_fsplCtrl.SetItemText(nItem, 3, _T("0.3"));
+	m_fsplCtrl.SetItemText(nItem, 4, _T("0.4"));
+	m_fsplCtrl.SetItemText(nItem, 5, _T("0.5"));
+	m_fsplCtrl.SetItemText(nItem, 6, _T("0.6"));
+	m_fsplCtrl.SetItemText(nItem, 7, _T("0.7"));
+	m_fsplCtrl.SetItemText(nItem, 8, _T("0.8"));
+	m_fsplCtrl.SetItemText(nItem, 9, _T("0.9"));
+	m_fsplCtrl.SetItemText(nItem,10, _T("1.0"));
+	m_fsplCtrl.SetItemText(nItem,11, _T("1.5"));
+	m_fsplCtrl.SetItemText(nItem,12, _T("2.0"));
+	m_fsplCtrl.SetItemText(nItem,13, _T("2.5"));
+	m_fsplCtrl.SetItemText(nItem,14, _T("3.0"));
+	m_fsplCtrl.SetItemText(nItem,15, _T("6.0"));
 
 	nItem = m_fsplCtrl.InsertItem(2, _T("H2O attenuation"));
 	for (int i = 1; i <= 15; i++) {
