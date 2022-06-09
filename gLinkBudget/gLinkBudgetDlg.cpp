@@ -125,8 +125,7 @@ BOOL CgLinkBudgetDlg::OnInitDialog()
 	if (!LoadValue(_T("8GbpsBwRxSensitivityLevel"), &m_str8GbpsBwRxSensitivityLevel, strInifile)) return FALSE;
 	if (!LoadValue(_T("9GbpsBwRxSensitivityLevel"), &m_str9GbpsBwRxSensitivityLevel, strInifile)) return FALSE;
 
-	fillReceiverSignalLevel(fillFreeSpacePathLoss());
-	fillLinkBudget();
+	fillLinkBudget(fillReceiverSignalLevel(fillFreeSpacePathLoss()));
 
 	return TRUE;  // 포커스를 컨트롤에 설정하지 않으면 TRUE를 반환합니다.
 }
@@ -253,7 +252,7 @@ int CgLinkBudgetDlg::fillFreeSpacePathLoss()
 	return nFSPL;
 }
 
-void CgLinkBudgetDlg::fillReceiverSignalLevel(int nFSPL)
+int CgLinkBudgetDlg::fillReceiverSignalLevel(int nFSPL)
 {
 	CString str;
 	m_rslCtrl.InsertColumn(0, _T(""), LVCFMT_LEFT, 260);
@@ -282,9 +281,10 @@ void CgLinkBudgetDlg::fillReceiverSignalLevel(int nFSPL)
 		str.Format(_T("%.4f"), rslv);
 		m_rslCtrl.SetItemText(nRslv, i, str);
 	}
+	return nRslv;
 }
 
-void CgLinkBudgetDlg::fillLinkBudget()
+void CgLinkBudgetDlg::fillLinkBudget(int nRslv)
 {
 	CString str;
 	m_lbCtrl.InsertColumn(0, _T(""), LVCFMT_LEFT, 210);
