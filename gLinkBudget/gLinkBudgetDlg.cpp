@@ -212,32 +212,33 @@ void CgLinkBudgetDlg::fillFreeSpacePathLoss()
 	m_fsplCtrl.InsertColumn(0, _T(""), LVCFMT_LEFT, 260);
 	for (int i = 1; i <= 15; i++) {
 		str.Format(_T("%d"), i);
-		m_fsplCtrl.InsertColumn(i, str, LVCFMT_LEFT, 50);
+		m_fsplCtrl.InsertColumn(i, str, LVCFMT_LEFT, 60);
 	}
 
 	int nItem = m_fsplCtrl.InsertItem(0, _T("Frequency(GHz)"));
 	for (int i = 1; i <= 15; i++) m_fsplCtrl.SetItemText(nItem, i, m_strFrequency);
 
-	nItem = m_fsplCtrl.InsertItem(1, _T("Distance(m)"));
-	m_fsplCtrl.SetItemText(nItem, 1, _T("0.1"));
-	m_fsplCtrl.SetItemText(nItem, 2, _T("0.2"));
-	m_fsplCtrl.SetItemText(nItem, 3, _T("0.3"));
-	m_fsplCtrl.SetItemText(nItem, 4, _T("0.4"));
-	m_fsplCtrl.SetItemText(nItem, 5, _T("0.5"));
-	m_fsplCtrl.SetItemText(nItem, 6, _T("0.6"));
-	m_fsplCtrl.SetItemText(nItem, 7, _T("0.7"));
-	m_fsplCtrl.SetItemText(nItem, 8, _T("0.8"));
-	m_fsplCtrl.SetItemText(nItem, 9, _T("0.9"));
-	m_fsplCtrl.SetItemText(nItem,10, _T("1.0"));
-	m_fsplCtrl.SetItemText(nItem,11, _T("1.5"));
-	m_fsplCtrl.SetItemText(nItem,12, _T("2.0"));
-	m_fsplCtrl.SetItemText(nItem,13, _T("2.5"));
-	m_fsplCtrl.SetItemText(nItem,14, _T("3.0"));
-	m_fsplCtrl.SetItemText(nItem,15, _T("6.0"));
+	int nDist = m_fsplCtrl.InsertItem(1, _T("Distance(m)"));
+	m_fsplCtrl.SetItemText(nDist, 1, _T("0.1"));
+	m_fsplCtrl.SetItemText(nDist, 2, _T("0.2"));
+	m_fsplCtrl.SetItemText(nDist, 3, _T("0.3"));
+	m_fsplCtrl.SetItemText(nDist, 4, _T("0.4"));
+	m_fsplCtrl.SetItemText(nDist, 5, _T("0.5"));
+	m_fsplCtrl.SetItemText(nDist, 6, _T("0.6"));
+	m_fsplCtrl.SetItemText(nDist, 7, _T("0.7"));
+	m_fsplCtrl.SetItemText(nDist, 8, _T("0.8"));
+	m_fsplCtrl.SetItemText(nDist, 9, _T("0.9"));
+	m_fsplCtrl.SetItemText(nDist,10, _T("1.0"));
+	m_fsplCtrl.SetItemText(nDist,11, _T("1.5"));
+	m_fsplCtrl.SetItemText(nDist,12, _T("2.0"));
+	m_fsplCtrl.SetItemText(nDist,13, _T("2.5"));
+	m_fsplCtrl.SetItemText(nDist,14, _T("3.0"));
+	m_fsplCtrl.SetItemText(nDist,15, _T("6.0"));
 
 	nItem = m_fsplCtrl.InsertItem(2, _T("H2O attenuation"));
 	for (int i = 1; i <= 15; i++) {
-		str.Format(_T("%d"), i);
+		double val = _ttof(m_fsplCtrl.GetItemText(nDist, i).GetBuffer()) * _ttof(m_strH2OAtten.GetBuffer());
+		str.Format(_T("%.4f"), val);
 		m_fsplCtrl.SetItemText(nItem, i, str);
 	}
 
