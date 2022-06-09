@@ -69,6 +69,7 @@ BEGIN_MESSAGE_MAP(CgLinkBudgetDlg, CDialogEx)
 	ON_WM_SYSCOMMAND()
 	ON_WM_PAINT()
 	ON_WM_QUERYDRAGICON()
+	ON_NOTIFY(NM_CUSTOMDRAW, IDC_LINK_BUDGET_LIST, OnNMCustomdrawLinkBudgetList)
 END_MESSAGE_MAP()
 
 
@@ -337,5 +338,43 @@ void CgLinkBudgetDlg::comparison(CString& m_strGbpsBwRxSensitivityLevel,int nRsl
 		double rslv = _ttof(m_rslCtrl.GetItemText(nRslv, i - 1).GetBuffer());
 		double sens = _ttof(m_strGbpsBwRxSensitivityLevel.GetBuffer());
 		(rslv >= sens) ? m_lbCtrl.SetItemText(nItem, i, _T("O")) : m_lbCtrl.SetItemText(nItem, i, _T("X"));
+	}
+}
+
+void CgLinkBudgetDlg::OnNMCustomdrawLinkBudgetList(NMHDR* pNMHDR, LRESULT* pResult)
+{
+	LPNMLVCUSTOMDRAW  lplvcd = (LPNMLVCUSTOMDRAW)pNMHDR;
+
+	int nRow, nSub;
+	switch (lplvcd->nmcd.dwDrawStage)
+	{
+	case CDDS_PREPAINT:
+		*pResult = CDRF_NOTIFYITEMDRAW;				// 아이템외에 일반적으로 처리하는 부분
+		lplvcd->clrTextBk = RGB(0, 0, 255);
+		break;
+
+	case CDDS_ITEMPREPAINT:                         // 행 아이템에 대한 처리를 할 경우
+		*pResult = CDRF_NOTIFYSUBITEMDRAW;
+		break;
+
+	case CDDS_ITEMPREPAINT | CDDS_SUBITEM:			// 행과 열 아이템에 대한 처리를 할 경우
+			nRow = (int)lplvcd->nmcd.dwItemSpec;	// 행 인덱스를 가져옴
+			nSub = (int)lplvcd->iSubItem;           // 열 인덱스를 가져옴
+
+			{
+				CString str = m_lbCtrl.GetItemText(nRow, nSub);
+				TRACE(str+_T("\n"));
+			}
+
+			// 해당 부분에 if 조건문을 통해 원하는 값에 대한 색상을 변경 할수 있다.
+			// 예를들면 해당 행과 열의 리스트의 값을 비교하거나, 해당 행과 열 인덱스를 비교한다.
+			{
+				lplvcd->clrTextBk = RGB(255, 255, 255);		// 해당 행, 열 아이템의 배경색을 지정한다.
+				lplvcd->clrText = RGB(0, 0, 0);				// 해당 행, 열 아이템의 글자색을 지정한다.
+			}
+		break;
+	default:
+		*pResult = CDRF_DODEFAULT;
+		break;
 	}
 }
