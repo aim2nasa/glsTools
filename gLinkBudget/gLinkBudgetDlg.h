@@ -53,4 +53,5 @@ public:
 
 	void L(const TCHAR* str, ...);
 	BOOL LoadValue(TCHAR* regTagName, CString* pTargetStr, CString fileName);
+	void fillFreeSpacePathLoss();
 };

@@ -124,33 +124,7 @@ BOOL CgLinkBudgetDlg::OnInitDialog()
 	if (!LoadValue(_T("8GbpsBwRxSensitivityLevel"), &m_str8GbpsBwRxSensitivityLevel, strInifile)) return FALSE;
 	if (!LoadValue(_T("9GbpsBwRxSensitivityLevel"), &m_str9GbpsBwRxSensitivityLevel, strInifile)) return FALSE;
 
-	CString str;
-	m_fsplCtrl.InsertColumn(0, _T(""), LVCFMT_LEFT, 110);
-	for (int i = 1; i <= 15; i++) {
-		str.Format(_T("%d"), i);
-		m_fsplCtrl.InsertColumn(i, str, LVCFMT_LEFT, 50);
-	}
-
-	int nItem = m_fsplCtrl.InsertItem(0, _T("Frequency(GHz)"));
-	for (int i = 1; i <= 15; i++) m_fsplCtrl.SetItemText(nItem, i, m_strFrequency);
-
-	nItem = m_fsplCtrl.InsertItem(1, _T("Distance(m)"));
-	for (int i = 1; i <= 15; i++) {
-		str.Format(_T("%d"), i);
-		m_fsplCtrl.SetItemText(nItem, i, str);
-	}
-
-	nItem = m_fsplCtrl.InsertItem(2, _T("H2O attenuation"));
-	for (int i = 1; i <= 15; i++) {
-		str.Format(_T("%d"), i);
-		m_fsplCtrl.SetItemText(nItem, i, str);
-	}
-
-	nItem = m_fsplCtrl.InsertItem(3, _T("FSPL"));
-	for (int i = 1; i <= 15; i++) {
-		str.Format(_T("%d"), i);
-		m_fsplCtrl.SetItemText(nItem, i, str);
-	}
+	fillFreeSpacePathLoss();
 
 	return TRUE;  // 포커스를 컨트롤에 설정하지 않으면 TRUE를 반환합니다.
 }
@@ -227,4 +201,35 @@ BOOL CgLinkBudgetDlg::LoadValue(TCHAR* regTagName, CString* pTargetStr, CString 
 	if (CString(strTmp).IsEmpty()) return FALSE;
 	*pTargetStr = CString(strTmp);
 	return TRUE;
+}
+
+void CgLinkBudgetDlg::fillFreeSpacePathLoss()
+{
+	CString str;
+	m_fsplCtrl.InsertColumn(0, _T(""), LVCFMT_LEFT, 110);
+	for (int i = 1; i <= 15; i++) {
+		str.Format(_T("%d"), i);
+		m_fsplCtrl.InsertColumn(i, str, LVCFMT_LEFT, 50);
+	}
+
+	int nItem = m_fsplCtrl.InsertItem(0, _T("Frequency(GHz)"));
+	for (int i = 1; i <= 15; i++) m_fsplCtrl.SetItemText(nItem, i, m_strFrequency);
+
+	nItem = m_fsplCtrl.InsertItem(1, _T("Distance(m)"));
+	for (int i = 1; i <= 15; i++) {
+		str.Format(_T("%d"), i);
+		m_fsplCtrl.SetItemText(nItem, i, str);
+	}
+
+	nItem = m_fsplCtrl.InsertItem(2, _T("H2O attenuation"));
+	for (int i = 1; i <= 15; i++) {
+		str.Format(_T("%d"), i);
+		m_fsplCtrl.SetItemText(nItem, i, str);
+	}
+
+	nItem = m_fsplCtrl.InsertItem(3, _T("FSPL"));
+	for (int i = 1; i <= 15; i++) {
+		str.Format(_T("%d"), i);
+		m_fsplCtrl.SetItemText(nItem, i, str);
+	}
 }
