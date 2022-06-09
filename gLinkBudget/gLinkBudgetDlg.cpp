@@ -62,6 +62,7 @@ void CgLinkBudgetDlg::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_LOG_LIST, m_log);
 	DDX_Control(pDX, IDC_FREE_SPACE_PATH_LOSS_LIST, m_fsplCtrl);
 	DDX_Control(pDX, IDC_RECEIVER_SIGNAL_LEVEL_LIST, m_rslCtrl);
+	DDX_Control(pDX, IDC_LINK_BUDGET_LIST, m_lbCtrl);
 }
 
 BEGIN_MESSAGE_MAP(CgLinkBudgetDlg, CDialogEx)
@@ -126,6 +127,7 @@ BOOL CgLinkBudgetDlg::OnInitDialog()
 
 	fillFreeSpacePathLoss();
 	fillReceiverSignalLevel();
+	fillLinkBudget();
 
 	return TRUE;  // 포커스를 컨트롤에 설정하지 않으면 TRUE를 반환합니다.
 }
@@ -207,7 +209,7 @@ BOOL CgLinkBudgetDlg::LoadValue(TCHAR* regTagName, CString* pTargetStr, CString 
 void CgLinkBudgetDlg::fillFreeSpacePathLoss()
 {
 	CString str;
-	m_fsplCtrl.InsertColumn(0, _T(""), LVCFMT_LEFT, 160);
+	m_fsplCtrl.InsertColumn(0, _T(""), LVCFMT_LEFT, 260);
 	for (int i = 1; i <= 15; i++) {
 		str.Format(_T("%d"), i);
 		m_fsplCtrl.InsertColumn(i, str, LVCFMT_LEFT, 50);
@@ -238,7 +240,7 @@ void CgLinkBudgetDlg::fillFreeSpacePathLoss()
 void CgLinkBudgetDlg::fillReceiverSignalLevel()
 {
 	CString str;
-	m_rslCtrl.InsertColumn(0, _T(""), LVCFMT_LEFT, 160);
+	m_rslCtrl.InsertColumn(0, _T(""), LVCFMT_LEFT, 260);
 	for (int i = 1; i <= 15; i++) {
 		str.Format(_T("%d"), i);
 		m_rslCtrl.InsertColumn(i, str, LVCFMT_LEFT, 50);
@@ -258,4 +260,51 @@ void CgLinkBudgetDlg::fillReceiverSignalLevel()
 		str.Format(_T("%d"), i);
 		m_rslCtrl.SetItemText(nItem, i, str);
 	}
+}
+
+void CgLinkBudgetDlg::fillLinkBudget()
+{
+	CString str;
+	m_lbCtrl.InsertColumn(0, _T(""), LVCFMT_LEFT, 210);
+	m_lbCtrl.InsertColumn(1, _T(""), LVCFMT_LEFT, 50);
+	for (int i = 2; i <= 16; i++) {
+		str.Format(_T("%d"), i-1);
+		m_lbCtrl.InsertColumn(i, str, LVCFMT_LEFT, 50);
+	}
+
+	int nItem = m_lbCtrl.InsertItem(0, _T("1Gbps BW RX Sensitivity Level(dBm)"));
+	m_lbCtrl.SetItemText(nItem, 1, m_str1GbpsBwRxSensitivityLevel);
+	for (int i = 2; i <= 16; i++) m_lbCtrl.SetItemText(nItem, i, _T("-"));
+
+	nItem = m_lbCtrl.InsertItem(1, _T("2Gbps BW RX Sensitivity Level(dBm)"));
+	m_lbCtrl.SetItemText(nItem, 1, m_str2GbpsBwRxSensitivityLevel);
+	for (int i = 2; i <= 16; i++) m_lbCtrl.SetItemText(nItem, i, _T("-"));
+
+	nItem = m_lbCtrl.InsertItem(2, _T("3Gbps BW RX Sensitivity Level(dBm)"));
+	m_lbCtrl.SetItemText(nItem, 1, m_str3GbpsBwRxSensitivityLevel);
+	for (int i = 2; i <= 16; i++) m_lbCtrl.SetItemText(nItem, i, _T("-"));
+
+	nItem = m_lbCtrl.InsertItem(3, _T("4Gbps BW RX Sensitivity Level(dBm)"));
+	m_lbCtrl.SetItemText(nItem, 1, m_str4GbpsBwRxSensitivityLevel);
+	for (int i = 2; i <= 16; i++) m_lbCtrl.SetItemText(nItem, i, _T("-"));
+
+	nItem = m_lbCtrl.InsertItem(4, _T("5Gbps BW RX Sensitivity Level(dBm)"));
+	m_lbCtrl.SetItemText(nItem, 1, m_str5GbpsBwRxSensitivityLevel);
+	for (int i = 2; i <= 16; i++) m_lbCtrl.SetItemText(nItem, i, _T("-"));
+
+	nItem = m_lbCtrl.InsertItem(5, _T("6Gbps BW RX Sensitivity Level(dBm)"));
+	m_lbCtrl.SetItemText(nItem, 1, m_str6GbpsBwRxSensitivityLevel);
+	for (int i = 2; i <= 16; i++) m_lbCtrl.SetItemText(nItem, i, _T("-"));
+
+	nItem = m_lbCtrl.InsertItem(6, _T("7Gbps BW RX Sensitivity Level(dBm)"));
+	m_lbCtrl.SetItemText(nItem, 1, m_str7GbpsBwRxSensitivityLevel);
+	for (int i = 2; i <= 16; i++) m_lbCtrl.SetItemText(nItem, i, _T("-"));
+
+	nItem = m_lbCtrl.InsertItem(7, _T("8Gbps BW RX Sensitivity Level(dBm)"));
+	m_lbCtrl.SetItemText(nItem, 1, m_str8GbpsBwRxSensitivityLevel);
+	for (int i = 2; i <= 16; i++) m_lbCtrl.SetItemText(nItem, i, _T("-"));
+
+	nItem = m_lbCtrl.InsertItem(8, _T("9Gbps BW RX Sensitivity Level(dBm)"));
+	m_lbCtrl.SetItemText(nItem, 1, m_str9GbpsBwRxSensitivityLevel);
+	for (int i = 2; i <= 16; i++) m_lbCtrl.SetItemText(nItem, i, _T("-"));
 }
