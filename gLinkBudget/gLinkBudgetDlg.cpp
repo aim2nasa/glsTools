@@ -61,6 +61,7 @@ void CgLinkBudgetDlg::DoDataExchange(CDataExchange* pDX)
 	CDialogEx::DoDataExchange(pDX);
 	DDX_Control(pDX, IDC_LOG_LIST, m_log);
 	DDX_Control(pDX, IDC_FREE_SPACE_PATH_LOSS_LIST, m_fsplCtrl);
+	DDX_Control(pDX, IDC_RECEIVER_SIGNAL_LEVEL_LIST, m_rslCtrl);
 }
 
 BEGIN_MESSAGE_MAP(CgLinkBudgetDlg, CDialogEx)

@@ -7,9 +7,9 @@
 #define IDS_ABOUTBOX                    101
 #define IDD_GLINKBUDGET_DIALOG          102
 #define IDR_MAINFRAME                   128
-#define IDC_LIST1                       1000
 #define IDC_LOG_LIST                    1000
 #define IDC_FREE_SPACE_PATH_LOSS_LIST   1001
+#define IDC_RECEIVER_SIGNAL_LEVEL_LIST  1002
 
 // Next default values for new objects
 // 
