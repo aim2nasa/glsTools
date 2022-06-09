@@ -235,17 +235,21 @@ void CgLinkBudgetDlg::fillFreeSpacePathLoss()
 	m_fsplCtrl.SetItemText(nDist,14, _T("3.0"));
 	m_fsplCtrl.SetItemText(nDist,15, _T("6.0"));
 
-	nItem = m_fsplCtrl.InsertItem(2, _T("H2O attenuation"));
+	int nH2oA = m_fsplCtrl.InsertItem(2, _T("H2O attenuation"));
 	for (int i = 1; i <= 15; i++) {
 		double val = _ttof(m_fsplCtrl.GetItemText(nDist, i).GetBuffer()) * _ttof(m_strH2OAtten.GetBuffer());
 		str.Format(_T("%.4f"), val);
-		m_fsplCtrl.SetItemText(nItem, i, str);
+		m_fsplCtrl.SetItemText(nH2oA, i, str);
 	}
 
-	nItem = m_fsplCtrl.InsertItem(3, _T("FSPL"));
+	int nFSPL = m_fsplCtrl.InsertItem(3, _T("FSPL"));
 	for (int i = 1; i <= 15; i++) {
-		str.Format(_T("%d"), i);
-		m_fsplCtrl.SetItemText(nItem, i, str);
+		double freq = _ttof(m_fsplCtrl.GetItemText(nItem, i).GetBuffer());
+		double dist = _ttof(m_fsplCtrl.GetItemText(nDist, i).GetBuffer());
+		double h20a = _ttof(m_fsplCtrl.GetItemText(nH2oA, i).GetBuffer());
+		double fspl = 20. * log10(freq) + 20. * log10(dist / 1000.) + 92.4 + h20a;
+		str.Format(_T("%.4f"), fspl);
+		m_fsplCtrl.SetItemText(nFSPL, i, str);
 	}
 }
 
