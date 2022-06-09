@@ -228,6 +228,7 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="res\gLinkBudget.ico" />
+    <Image Include="res\GLS.bmp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
