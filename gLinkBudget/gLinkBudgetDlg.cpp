@@ -296,41 +296,46 @@ void CgLinkBudgetDlg::fillLinkBudget(int nRslv)
 
 	int nItem = m_lbCtrl.InsertItem(0, _T("1Gbps BW RX Sensitivity Level(dBm)"));
 	m_lbCtrl.SetItemText(nItem, 1, m_str1GbpsBwRxSensitivityLevel);
-	for (int i = 2; i <= 16; i++) {
-		double rslv = _ttof(m_rslCtrl.GetItemText(nRslv, i-1).GetBuffer());
-		double sens = _ttof(m_str1GbpsBwRxSensitivityLevel.GetBuffer());
-		(rslv >= sens) ? m_lbCtrl.SetItemText(nItem, i, _T("O")) : m_lbCtrl.SetItemText(nItem, i, _T("X"));
-	}
+	comparison(m_str1GbpsBwRxSensitivityLevel, nRslv, nItem);
 
 	nItem = m_lbCtrl.InsertItem(1, _T("2Gbps BW RX Sensitivity Level(dBm)"));
 	m_lbCtrl.SetItemText(nItem, 1, m_str2GbpsBwRxSensitivityLevel);
-	for (int i = 2; i <= 16; i++) m_lbCtrl.SetItemText(nItem, i, _T("-"));
+	comparison(m_str2GbpsBwRxSensitivityLevel, nRslv, nItem);
 
 	nItem = m_lbCtrl.InsertItem(2, _T("3Gbps BW RX Sensitivity Level(dBm)"));
 	m_lbCtrl.SetItemText(nItem, 1, m_str3GbpsBwRxSensitivityLevel);
-	for (int i = 2; i <= 16; i++) m_lbCtrl.SetItemText(nItem, i, _T("-"));
+	comparison(m_str3GbpsBwRxSensitivityLevel, nRslv, nItem);
 
 	nItem = m_lbCtrl.InsertItem(3, _T("4Gbps BW RX Sensitivity Level(dBm)"));
 	m_lbCtrl.SetItemText(nItem, 1, m_str4GbpsBwRxSensitivityLevel);
-	for (int i = 2; i <= 16; i++) m_lbCtrl.SetItemText(nItem, i, _T("-"));
+	comparison(m_str4GbpsBwRxSensitivityLevel, nRslv, nItem);
 
 	nItem = m_lbCtrl.InsertItem(4, _T("5Gbps BW RX Sensitivity Level(dBm)"));
 	m_lbCtrl.SetItemText(nItem, 1, m_str5GbpsBwRxSensitivityLevel);
-	for (int i = 2; i <= 16; i++) m_lbCtrl.SetItemText(nItem, i, _T("-"));
+	comparison(m_str5GbpsBwRxSensitivityLevel, nRslv, nItem);
 
 	nItem = m_lbCtrl.InsertItem(5, _T("6Gbps BW RX Sensitivity Level(dBm)"));
 	m_lbCtrl.SetItemText(nItem, 1, m_str6GbpsBwRxSensitivityLevel);
-	for (int i = 2; i <= 16; i++) m_lbCtrl.SetItemText(nItem, i, _T("-"));
+	comparison(m_str6GbpsBwRxSensitivityLevel, nRslv, nItem);
 
 	nItem = m_lbCtrl.InsertItem(6, _T("7Gbps BW RX Sensitivity Level(dBm)"));
 	m_lbCtrl.SetItemText(nItem, 1, m_str7GbpsBwRxSensitivityLevel);
-	for (int i = 2; i <= 16; i++) m_lbCtrl.SetItemText(nItem, i, _T("-"));
+	comparison(m_str7GbpsBwRxSensitivityLevel, nRslv, nItem);
 
 	nItem = m_lbCtrl.InsertItem(7, _T("8Gbps BW RX Sensitivity Level(dBm)"));
 	m_lbCtrl.SetItemText(nItem, 1, m_str8GbpsBwRxSensitivityLevel);
-	for (int i = 2; i <= 16; i++) m_lbCtrl.SetItemText(nItem, i, _T("-"));
+	comparison(m_str8GbpsBwRxSensitivityLevel, nRslv, nItem);
 
 	nItem = m_lbCtrl.InsertItem(8, _T("9Gbps BW RX Sensitivity Level(dBm)"));
 	m_lbCtrl.SetItemText(nItem, 1, m_str9GbpsBwRxSensitivityLevel);
-	for (int i = 2; i <= 16; i++) m_lbCtrl.SetItemText(nItem, i, _T("-"));
+	comparison(m_str9GbpsBwRxSensitivityLevel, nRslv, nItem);
+}
+
+void CgLinkBudgetDlg::comparison(CString& m_strGbpsBwRxSensitivityLevel,int nRslv,int nItem)
+{
+	for (int i = 2; i <= 16; i++) {
+		double rslv = _ttof(m_rslCtrl.GetItemText(nRslv, i - 1).GetBuffer());
+		double sens = _ttof(m_strGbpsBwRxSensitivityLevel.GetBuffer());
+		(rslv >= sens) ? m_lbCtrl.SetItemText(nItem, i, _T("O")) : m_lbCtrl.SetItemText(nItem, i, _T("X"));
+	}
 }

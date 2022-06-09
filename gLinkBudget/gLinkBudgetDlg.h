@@ -57,4 +57,5 @@ public:
 	int fillFreeSpacePathLoss();
 	int fillReceiverSignalLevel(int nFSPL);
 	void fillLinkBudget(int nRslv);
+	void comparison(CString& m_strGbpsBwRxSensitivityLevel, int nRslv, int nItem);
 };
