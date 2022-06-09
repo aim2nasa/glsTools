@@ -296,7 +296,11 @@ void CgLinkBudgetDlg::fillLinkBudget(int nRslv)
 
 	int nItem = m_lbCtrl.InsertItem(0, _T("1Gbps BW RX Sensitivity Level(dBm)"));
 	m_lbCtrl.SetItemText(nItem, 1, m_str1GbpsBwRxSensitivityLevel);
-	for (int i = 2; i <= 16; i++) m_lbCtrl.SetItemText(nItem, i, _T("-"));
+	for (int i = 2; i <= 16; i++) {
+		double rslv = _ttof(m_rslCtrl.GetItemText(nRslv, i-1).GetBuffer());
+		double sens = _ttof(m_str1GbpsBwRxSensitivityLevel.GetBuffer());
+		(rslv >= sens) ? m_lbCtrl.SetItemText(nItem, i, _T("O")) : m_lbCtrl.SetItemText(nItem, i, _T("X"));
+	}
 
 	nItem = m_lbCtrl.InsertItem(1, _T("2Gbps BW RX Sensitivity Level(dBm)"));
 	m_lbCtrl.SetItemText(nItem, 1, m_str2GbpsBwRxSensitivityLevel);
