@@ -125,6 +125,7 @@ BOOL CgLinkBudgetDlg::OnInitDialog()
 	if (!LoadValue(_T("9GbpsBwRxSensitivityLevel"), &m_str9GbpsBwRxSensitivityLevel, strInifile)) return FALSE;
 
 	fillFreeSpacePathLoss();
+	fillReceiverSignalLevel();
 
 	return TRUE;  // 포커스를 컨트롤에 설정하지 않으면 TRUE를 반환합니다.
 }
@@ -206,7 +207,7 @@ BOOL CgLinkBudgetDlg::LoadValue(TCHAR* regTagName, CString* pTargetStr, CString 
 void CgLinkBudgetDlg::fillFreeSpacePathLoss()
 {
 	CString str;
-	m_fsplCtrl.InsertColumn(0, _T(""), LVCFMT_LEFT, 110);
+	m_fsplCtrl.InsertColumn(0, _T(""), LVCFMT_LEFT, 160);
 	for (int i = 1; i <= 15; i++) {
 		str.Format(_T("%d"), i);
 		m_fsplCtrl.InsertColumn(i, str, LVCFMT_LEFT, 50);
@@ -231,5 +232,30 @@ void CgLinkBudgetDlg::fillFreeSpacePathLoss()
 	for (int i = 1; i <= 15; i++) {
 		str.Format(_T("%d"), i);
 		m_fsplCtrl.SetItemText(nItem, i, str);
+	}
+}
+
+void CgLinkBudgetDlg::fillReceiverSignalLevel()
+{
+	CString str;
+	m_rslCtrl.InsertColumn(0, _T(""), LVCFMT_LEFT, 160);
+	for (int i = 1; i <= 15; i++) {
+		str.Format(_T("%d"), i);
+		m_rslCtrl.InsertColumn(i, str, LVCFMT_LEFT, 50);
+	}
+
+	int nItem = m_rslCtrl.InsertItem(0, _T("Tx Output Power(dBm)"));
+	for (int i = 1; i <= 15; i++) m_rslCtrl.SetItemText(nItem, i, m_strTxOutputPower);
+
+	nItem = m_rslCtrl.InsertItem(1, _T("Tx Antenna Gain(dBi)"));
+	for (int i = 1; i <= 15; i++) m_rslCtrl.SetItemText(nItem, i, m_strTxAntennaGain);
+
+	nItem = m_rslCtrl.InsertItem(2, _T("Rx Antenna Gain(dBi)"));
+	for (int i = 1; i <= 15; i++) m_rslCtrl.SetItemText(nItem, i, m_strRxAntennaGain);
+
+	nItem = m_rslCtrl.InsertItem(3, _T("Receiver Signal Level(dBm)"));
+	for (int i = 1; i <= 15; i++) {
+		str.Format(_T("%d"), i);
+		m_rslCtrl.SetItemText(nItem, i, str);
 	}
 }
