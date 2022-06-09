@@ -361,16 +361,13 @@ void CgLinkBudgetDlg::OnNMCustomdrawLinkBudgetList(NMHDR* pNMHDR, LRESULT* pResu
 			nRow = (int)lplvcd->nmcd.dwItemSpec;	// 행 인덱스를 가져옴
 			nSub = (int)lplvcd->iSubItem;           // 열 인덱스를 가져옴
 
-			{
-				CString str = m_lbCtrl.GetItemText(nRow, nSub);
-				TRACE(str+_T("\n"));
+			if (m_lbCtrl.GetItemText(nRow, nSub) == _T("O")) {
+				lplvcd->clrTextBk = RGB(0, 0, 255);
+				lplvcd->clrText = RGB(255, 255, 255);
 			}
-
-			// 해당 부분에 if 조건문을 통해 원하는 값에 대한 색상을 변경 할수 있다.
-			// 예를들면 해당 행과 열의 리스트의 값을 비교하거나, 해당 행과 열 인덱스를 비교한다.
-			{
-				lplvcd->clrTextBk = RGB(255, 255, 255);		// 해당 행, 열 아이템의 배경색을 지정한다.
-				lplvcd->clrText = RGB(0, 0, 0);				// 해당 행, 열 아이템의 글자색을 지정한다.
+			else if (m_lbCtrl.GetItemText(nRow, nSub) == _T("X")) {
+				lplvcd->clrTextBk = RGB(255, 0, 0);
+				lplvcd->clrText = RGB(0, 0, 0);
 			}
 		break;
 	default:
