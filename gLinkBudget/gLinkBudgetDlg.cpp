@@ -503,7 +503,32 @@ void CgLinkBudgetDlg::OnHScroll(UINT nSBCode, UINT nPos, CScrollBar* pScrollBar)
 {
 	// TODO: 여기에 메시지 처리기 코드를 추가 및/또는 기본값을 호출합니다.
 	if (IDC_CONTROL_SLIDER == pScrollBar->GetDlgCtrlID()) {
-		SliderValueUpdate();
+		int curPos = SliderValueUpdate();
+
+		UpdateData(TRUE);
+		for (int i = 0; i < m_rslCtrl.GetItemCount(); i++) {
+			if (m_strSelectedStatic == m_rslCtrl.GetItemText(i, 0)) {
+				switch (i) {
+				case 0:
+					m_strTxOutputPower.Format(_T("%.1f"), float(curPos) / 10.);
+					for (int j = 1; j <= 15; j++) m_rslCtrl.SetItemText(i, j, m_strTxOutputPower);
+					break;
+				case 1:
+					m_strPathLoss.Format(_T("%.1f"), float(curPos) / 10.);
+					for (int j = 1; j <= 15; j++) m_rslCtrl.SetItemText(i, j, m_strPathLoss);
+					break;
+				case 2:
+					m_strTxAntennaGain.Format(_T("%.1f"), float(curPos) / 10.);
+					for (int j = 1; j <= 15; j++) m_rslCtrl.SetItemText(i, j, m_strTxAntennaGain);
+					break;
+				case 3:
+					m_strRxAntennaGain.Format(_T("%.1f"), float(curPos) / 10.);
+					for (int j = 1; j <= 15; j++) m_rslCtrl.SetItemText(i, j, m_strRxAntennaGain);
+					break;
+				}
+			}
+		}
+		UpdateData(FALSE);
 	}
 
 	CDialogEx::OnHScroll(nSBCode, nPos, pScrollBar);
