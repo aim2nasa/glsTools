@@ -247,19 +247,23 @@ int CgLinkBudgetDlg::fillReceiverSignalLevel(int nFSPL)
 	int nTxop = m_rslCtrl.InsertItem(0, _T("Tx Output Power(dBm)"));
 	for (int i = 1; i <= 15; i++) m_rslCtrl.SetItemText(nTxop, i, m_strTxOutputPower);
 
-	int nTxag = m_rslCtrl.InsertItem(1, _T("Tx Antenna Gain(dBi)"));
+	int nPtls = m_rslCtrl.InsertItem(1, _T("Path Loss(dBm)"));
+	for (int i = 1; i <= 15; i++) m_rslCtrl.SetItemText(nPtls, i, m_strPathLoss);
+
+	int nTxag = m_rslCtrl.InsertItem(2, _T("Tx Antenna Gain(dBi)"));
 	for (int i = 1; i <= 15; i++) m_rslCtrl.SetItemText(nTxag, i, m_strTxAntennaGain);
 
-	int nRxag = m_rslCtrl.InsertItem(2, _T("Rx Antenna Gain(dBi)"));
+	int nRxag = m_rslCtrl.InsertItem(3, _T("Rx Antenna Gain(dBi)"));
 	for (int i = 1; i <= 15; i++) m_rslCtrl.SetItemText(nRxag, i, m_strRxAntennaGain);
 
-	int nRslv = m_rslCtrl.InsertItem(3, _T("Receiver Signal Level(dBm)"));
+	int nRslv = m_rslCtrl.InsertItem(4, _T("Receiver Signal Level(dBm)"));
 	for (int i = 1; i <= 15; i++) {
 		double txop = _ttof(m_rslCtrl.GetItemText(nTxop,i).GetBuffer());
+		double ptls = _ttof(m_rslCtrl.GetItemText(nPtls, i).GetBuffer());
 		double txag = _ttof(m_rslCtrl.GetItemText(nTxag,i).GetBuffer());
 		double rxag = _ttof(m_rslCtrl.GetItemText(nRxag,i).GetBuffer());
 		double fspl = _ttof(m_fsplCtrl.GetItemText(nFSPL,i).GetBuffer());
-		double rslv = txop + txag + rxag - fspl;
+		double rslv = txop + txag + rxag - fspl - ptls;
 
 		str.Format(_T("%.4f"), rslv);
 		m_rslCtrl.SetItemText(nRslv, i, str);
@@ -369,6 +373,7 @@ BOOL CgLinkBudgetDlg::Load(CString fileName)
 	if (!LoadValue(_T("Frequency"), &m_strFrequency, strInifile)) return FALSE;
 	if (!LoadValue(_T("H2OAtten"), &m_strH2OAtten, strInifile)) return FALSE;
 	if (!LoadValue(_T("TxOutputPower"), &m_strTxOutputPower, strInifile)) return FALSE;
+	if (!LoadValue(_T("PathLoss"), &m_strPathLoss, strInifile)) return FALSE;
 	if (!LoadValue(_T("TxAntennaGain"), &m_strTxAntennaGain, strInifile)) return FALSE;
 	if (!LoadValue(_T("RxAntennaGain"), &m_strRxAntennaGain, strInifile)) return FALSE;
 	if (!LoadValue(_T("1GbpsBwRxSensitivityLevel"), &m_str1GbpsBwRxSensitivityLevel, strInifile)) return FALSE;

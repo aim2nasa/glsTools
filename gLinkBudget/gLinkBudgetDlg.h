@@ -37,6 +37,7 @@ public:
 	CString m_strFrequency;
 	CString m_strH2OAtten;
 	CString m_strTxOutputPower;
+	CString m_strPathLoss;
 	CString m_strTxAntennaGain;
 	CString m_strRxAntennaGain;
 	CString m_str1GbpsBwRxSensitivityLevel;
