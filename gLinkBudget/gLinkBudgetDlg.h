@@ -53,6 +53,7 @@ public:
 	CListCtrl m_rslCtrl;
 	CListCtrl m_lbCtrl;
 	CSliderCtrl m_controlSlider;
+	CString m_strSelectedStatic;
 
 	void L(const TCHAR* str, ...);
 	BOOL LoadValue(TCHAR* regTagName, CString* pTargetStr, CString fileName);
@@ -63,4 +64,5 @@ public:
 	afx_msg void OnNMCustomdrawLinkBudgetList(NMHDR* pNMHDR, LRESULT* pResult);
 	BOOL Load(CString fileName);
 	void ShowSlider(int nCmdShow);
+	afx_msg void OnNMDblclkReceiverSignalLevelList(NMHDR* pNMHDR, LRESULT* pResult);
 };

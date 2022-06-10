@@ -64,6 +64,7 @@ void CgLinkBudgetDlg::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_RECEIVER_SIGNAL_LEVEL_LIST, m_rslCtrl);
 	DDX_Control(pDX, IDC_LINK_BUDGET_LIST, m_lbCtrl);
 	DDX_Control(pDX, IDC_CONTROL_SLIDER, m_controlSlider);
+	DDX_Text(pDX, IDC_SELECTED_STATIC, m_strSelectedStatic);
 }
 
 BEGIN_MESSAGE_MAP(CgLinkBudgetDlg, CDialogEx)
@@ -71,6 +72,7 @@ BEGIN_MESSAGE_MAP(CgLinkBudgetDlg, CDialogEx)
 	ON_WM_PAINT()
 	ON_WM_QUERYDRAGICON()
 	ON_NOTIFY(NM_CUSTOMDRAW, IDC_LINK_BUDGET_LIST, OnNMCustomdrawLinkBudgetList)
+	ON_NOTIFY(NM_DBLCLK, IDC_RECEIVER_SIGNAL_LEVEL_LIST, &CgLinkBudgetDlg::OnNMDblclkReceiverSignalLevelList)
 END_MESSAGE_MAP()
 
 
@@ -397,4 +399,29 @@ void CgLinkBudgetDlg::ShowSlider(int nCmdShow)
 	GetDlgItem(IDC_SLIDER_MAX_STATIC)->ShowWindow(nCmdShow);
 	GetDlgItem(IDC_SLIDER_MIN_STATIC)->ShowWindow(nCmdShow);
 	GetDlgItem(IDC_SELECTED_STATIC)->ShowWindow(nCmdShow);
+}
+
+void CgLinkBudgetDlg::OnNMDblclkReceiverSignalLevelList(NMHDR* pNMHDR, LRESULT* pResult)
+{
+	LPNMITEMACTIVATE pNMItemActivate = reinterpret_cast<LPNMITEMACTIVATE>(pNMHDR);
+	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
+
+	NM_LISTVIEW* pNMListView = (NM_LISTVIEW*)pNMHDR;
+	int idx = pNMListView->iItem;
+
+	switch (idx) {
+	case 0:	//Tx Output Power
+	case 1:	//Path Loss
+	case 2:	//Tx Antenna Gain
+	case 3:	//Rx Antenna Gain
+		m_strSelectedStatic = m_rslCtrl.GetItemText(idx, 0);
+		ShowSlider(SW_SHOW);
+		UpdateData(FALSE);
+		break;
+	default:
+		ShowSlider(SW_HIDE);
+		break;
+	}
+
+	*pResult = 0;
 }
