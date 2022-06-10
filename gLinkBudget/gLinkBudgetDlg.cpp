@@ -84,7 +84,7 @@ BEGIN_MESSAGE_MAP(CgLinkBudgetDlg, CDialogEx)
 	ON_WM_PAINT()
 	ON_WM_QUERYDRAGICON()
 	ON_NOTIFY(NM_CUSTOMDRAW, IDC_LINK_BUDGET_LIST, OnNMCustomdrawLinkBudgetList)
-	ON_NOTIFY(NM_DBLCLK, IDC_RECEIVER_SIGNAL_LEVEL_LIST, &CgLinkBudgetDlg::OnNMDblclkReceiverSignalLevelList)
+	ON_NOTIFY(NM_CLICK, IDC_RECEIVER_SIGNAL_LEVEL_LIST, &CgLinkBudgetDlg::OnNMClkReceiverSignalLevelList)
 END_MESSAGE_MAP()
 
 
@@ -414,7 +414,7 @@ void CgLinkBudgetDlg::ShowSlider(int nCmdShow)
 	GetDlgItem(IDC_SLIDER_VALUE_STATIC)->ShowWindow(nCmdShow);
 }
 
-void CgLinkBudgetDlg::OnNMDblclkReceiverSignalLevelList(NMHDR* pNMHDR, LRESULT* pResult)
+void CgLinkBudgetDlg::OnNMClkReceiverSignalLevelList(NMHDR* pNMHDR, LRESULT* pResult)
 {
 	LPNMITEMACTIVATE pNMItemActivate = reinterpret_cast<LPNMITEMACTIVATE>(pNMHDR);
 	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
