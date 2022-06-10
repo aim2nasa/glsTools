@@ -111,6 +111,7 @@ BOOL CgLinkBudgetDlg::OnInitDialog()
 
 	fillLinkBudget(fillReceiverSignalLevel(fillFreeSpacePathLoss()));
 
+	ShowSlider(SW_HIDE);
 	return TRUE;  // 포커스를 컨트롤에 설정하지 않으면 TRUE를 반환합니다.
 }
 
@@ -388,4 +389,12 @@ BOOL CgLinkBudgetDlg::Load(CString fileName)
 	if (!LoadValue(_T("9GbpsBwRxSensitivityLevel"), &m_str9GbpsBwRxSensitivityLevel, strInifile)) return FALSE;
 
 	return TRUE;
+}
+
+void CgLinkBudgetDlg::ShowSlider(int nCmdShow)
+{
+	GetDlgItem(IDC_CONTROL_SLIDER)->ShowWindow(nCmdShow);
+	GetDlgItem(IDC_SLIDER_MAX_STATIC)->ShowWindow(nCmdShow);
+	GetDlgItem(IDC_SLIDER_MIN_STATIC)->ShowWindow(nCmdShow);
+	GetDlgItem(IDC_SELECTED_STATIC)->ShowWindow(nCmdShow);
 }
