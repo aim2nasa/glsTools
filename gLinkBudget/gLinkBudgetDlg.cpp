@@ -424,20 +424,16 @@ void CgLinkBudgetDlg::OnNMDblclkReceiverSignalLevelList(NMHDR* pNMHDR, LRESULT* 
 	if (idx >= 0 && idx <= 3) {
 		switch (idx) {
 		case 0:	//Tx Output Power
-			m_strSliderMin.Format(_T("Min:%d"),MinTxOutputPower);
-			m_strSliderMax.Format(_T("Max:%d"), MaxTxOutputPower);
+			SetControlSlider(MinTxOutputPower, MaxTxOutputPower, m_strTxOutputPower, 1, 1, 10);
 			break;
 		case 1:	//Path Loss
-			m_strSliderMin.Format(_T("Min:%d"), MinPathLoss);
-			m_strSliderMax.Format(_T("Max:%d"), MaxPathLoss);
+			SetControlSlider(MinPathLoss, MaxPathLoss, m_strPathLoss, 1, 1, 10);
 			break;
 		case 2:	//Tx Antenna Gain
-			m_strSliderMin.Format(_T("Min:%d"), MinTxAntennaGain);
-			m_strSliderMax.Format(_T("Max:%d"), MaxTxAntennaGain);
+			SetControlSlider(MinTxAntennaGain, MaxTxAntennaGain, m_strTxAntennaGain, 1, 1, 10);
 			break;
 		case 3:	//Rx Antenna Gain
-			m_strSliderMin.Format(_T("Min:%d"), MinRxAntennaGain);
-			m_strSliderMax.Format(_T("Max:%d"), MaxRxAntennaGain);
+			SetControlSlider(MinRxAntennaGain, MaxRxAntennaGain, m_strRxAntennaGain, 1, 1, 10);
 			break;
 		default:
 			break;
@@ -451,4 +447,20 @@ void CgLinkBudgetDlg::OnNMDblclkReceiverSignalLevelList(NMHDR* pNMHDR, LRESULT* 
 	}
 
 	*pResult = 0;
+}
+
+void CgLinkBudgetDlg::SetControlSlider(int min, int max, CString strCurVal, int ticFreq, int lineSize, int pageSize)
+{
+	int curVal = _tcstol(strCurVal.GetBuffer(), NULL, 16);
+
+	m_strSliderMin.Format(_T("Min:%d"), min);
+	m_strSliderMax.Format(_T("Max:%d"), max);
+
+	m_controlSlider.SetRange(min, max);
+	m_controlSlider.SetRangeMin(min);
+	m_controlSlider.SetRangeMax(max);
+	m_controlSlider.SetPos(curVal);
+	m_controlSlider.SetTicFreq(ticFreq);
+	m_controlSlider.SetLineSize(lineSize);
+	m_controlSlider.SetPageSize(pageSize);
 }
