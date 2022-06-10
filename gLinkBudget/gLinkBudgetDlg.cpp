@@ -411,6 +411,7 @@ void CgLinkBudgetDlg::ShowSlider(int nCmdShow)
 	GetDlgItem(IDC_SLIDER_MAX_STATIC)->ShowWindow(nCmdShow);
 	GetDlgItem(IDC_SLIDER_MIN_STATIC)->ShowWindow(nCmdShow);
 	GetDlgItem(IDC_SELECTED_STATIC)->ShowWindow(nCmdShow);
+	GetDlgItem(IDC_SLIDER_VALUE_STATIC)->ShowWindow(nCmdShow);
 }
 
 void CgLinkBudgetDlg::OnNMDblclkReceiverSignalLevelList(NMHDR* pNMHDR, LRESULT* pResult)
@@ -451,7 +452,7 @@ void CgLinkBudgetDlg::OnNMDblclkReceiverSignalLevelList(NMHDR* pNMHDR, LRESULT* 
 
 void CgLinkBudgetDlg::SetControlSlider(int min, int max, CString strCurVal, int ticFreq, int lineSize, int pageSize)
 {
-	int curVal = _tcstol(strCurVal.GetBuffer(), NULL, 16);
+	int curVal = _tcstol(strCurVal.GetBuffer(), NULL, 10);
 
 	m_strSliderMin.Format(_T("Min:%d"), min);
 	m_strSliderMax.Format(_T("Max:%d"), max);
@@ -463,4 +464,14 @@ void CgLinkBudgetDlg::SetControlSlider(int min, int max, CString strCurVal, int 
 	m_controlSlider.SetTicFreq(ticFreq);
 	m_controlSlider.SetLineSize(lineSize);
 	m_controlSlider.SetPageSize(pageSize);
+
+	SliderValueUpdate();
+}
+
+int CgLinkBudgetDlg::SliderValueUpdate()
+{
+	int curPos = m_controlSlider.GetPos();
+	m_strSliderValue.Format(_T("%.1f"), float(curPos));
+	UpdateData(FALSE);
+	return curPos;
 }
