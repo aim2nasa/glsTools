@@ -511,15 +511,23 @@ void CgLinkBudgetDlg::OnHScroll(UINT nSBCode, UINT nPos, CScrollBar* pScrollBar)
 				switch (i) {
 				case 0:
 					updateStrValue(m_strTxOutputPower, m_rslCtrl, i, curPos, 1, 15);
+					clearList();
+					fillLinkBudget(fillReceiverSignalLevel(fillFreeSpacePathLoss()));
 					break;
 				case 1:
 					updateStrValue(m_strPathLoss, m_rslCtrl, i, curPos, 1, 15);
+					clearList();
+					fillLinkBudget(fillReceiverSignalLevel(fillFreeSpacePathLoss()));
 					break;
 				case 2:
 					updateStrValue(m_strTxAntennaGain, m_rslCtrl, i, curPos, 1, 15);
+					clearList();
+					fillLinkBudget(fillReceiverSignalLevel(fillFreeSpacePathLoss()));
 					break;
 				case 3:
 					updateStrValue(m_strRxAntennaGain, m_rslCtrl, i, curPos, 1, 15);
+					clearList();
+					fillLinkBudget(fillReceiverSignalLevel(fillFreeSpacePathLoss()));
 					break;
 				}
 			}
@@ -534,4 +542,29 @@ void CgLinkBudgetDlg::updateStrValue(CString& strValue, CListCtrl& listCtrl, int
 {
 	strValue.Format(_T("%.1f"), float(curPos) / 10.);
 	for (int j = start; j <= end; j++) listCtrl.SetItemText(row, j, strValue);
+}
+
+void CgLinkBudgetDlg::clearFreeSpacePathLoss()
+{
+	m_fsplCtrl.DeleteAllItems();
+	while(m_fsplCtrl.DeleteColumn(0));
+}
+
+void CgLinkBudgetDlg::clearReceiverSignalLevel()
+{
+	m_rslCtrl.DeleteAllItems();
+	while (m_rslCtrl.DeleteColumn(0));
+}
+
+void CgLinkBudgetDlg::clearLinkBudget()
+{
+	m_lbCtrl.DeleteAllItems();
+	while (m_lbCtrl.DeleteColumn(0));
+}
+
+void CgLinkBudgetDlg::clearList()
+{
+	clearLinkBudget();
+	clearReceiverSignalLevel();
+	clearFreeSpacePathLoss();
 }
