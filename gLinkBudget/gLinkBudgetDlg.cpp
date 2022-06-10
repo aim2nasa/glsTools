@@ -105,26 +105,8 @@ BOOL CgLinkBudgetDlg::OnInitDialog()
 	SetIcon(m_hIcon, FALSE);		// 작은 아이콘을 설정합니다.
 
 	// TODO: 여기에 추가 초기화 작업을 추가합니다.
-	TCHAR path[256] = { 0, };
-	GetModuleFileName(NULL, path, 256);
-	CString strFolderPath(path);
-	strFolderPath = strFolderPath.Left(strFolderPath.ReverseFind(_T('\\')));
-	CString strInifile = strFolderPath + _T("\\LinkBudget.ini");
-
-	if (!LoadValue(_T("Frequency"), &m_strFrequency, strInifile)) return FALSE;
-	if (!LoadValue(_T("H2OAtten"), &m_strH2OAtten, strInifile)) return FALSE;
-	if (!LoadValue(_T("TxOutputPower"), &m_strTxOutputPower, strInifile)) return FALSE;
-	if (!LoadValue(_T("TxAntennaGain"), &m_strTxAntennaGain, strInifile)) return FALSE;
-	if (!LoadValue(_T("RxAntennaGain"), &m_strRxAntennaGain, strInifile)) return FALSE;
-	if (!LoadValue(_T("1GbpsBwRxSensitivityLevel"), &m_str1GbpsBwRxSensitivityLevel, strInifile)) return FALSE;
-	if (!LoadValue(_T("2GbpsBwRxSensitivityLevel"), &m_str2GbpsBwRxSensitivityLevel, strInifile)) return FALSE;
-	if (!LoadValue(_T("3GbpsBwRxSensitivityLevel"), &m_str3GbpsBwRxSensitivityLevel, strInifile)) return FALSE;
-	if (!LoadValue(_T("4GbpsBwRxSensitivityLevel"), &m_str4GbpsBwRxSensitivityLevel, strInifile)) return FALSE;
-	if (!LoadValue(_T("5GbpsBwRxSensitivityLevel"), &m_str5GbpsBwRxSensitivityLevel, strInifile)) return FALSE;
-	if (!LoadValue(_T("6GbpsBwRxSensitivityLevel"), &m_str6GbpsBwRxSensitivityLevel, strInifile)) return FALSE;
-	if (!LoadValue(_T("7GbpsBwRxSensitivityLevel"), &m_str7GbpsBwRxSensitivityLevel, strInifile)) return FALSE;
-	if (!LoadValue(_T("8GbpsBwRxSensitivityLevel"), &m_str8GbpsBwRxSensitivityLevel, strInifile)) return FALSE;
-	if (!LoadValue(_T("9GbpsBwRxSensitivityLevel"), &m_str9GbpsBwRxSensitivityLevel, strInifile)) return FALSE;
+	CString fileName = _T("LinkBudget.ini");
+	Load(fileName) ? L(fileName + _T(" loaded")) : L(fileName + _T(" load failed"));
 
 	fillLinkBudget(fillReceiverSignalLevel(fillFreeSpacePathLoss()));
 
@@ -374,4 +356,30 @@ void CgLinkBudgetDlg::OnNMCustomdrawLinkBudgetList(NMHDR* pNMHDR, LRESULT* pResu
 		*pResult = CDRF_DODEFAULT;
 		break;
 	}
+}
+
+BOOL CgLinkBudgetDlg::Load(CString fileName)
+{
+	TCHAR path[256] = { 0, };
+	GetModuleFileName(NULL, path, 256);
+	CString strFolderPath(path);
+	strFolderPath = strFolderPath.Left(strFolderPath.ReverseFind(_T('\\')));
+	CString strInifile = strFolderPath + _T("\\") + fileName;
+
+	if (!LoadValue(_T("Frequency"), &m_strFrequency, strInifile)) return FALSE;
+	if (!LoadValue(_T("H2OAtten"), &m_strH2OAtten, strInifile)) return FALSE;
+	if (!LoadValue(_T("TxOutputPower"), &m_strTxOutputPower, strInifile)) return FALSE;
+	if (!LoadValue(_T("TxAntennaGain"), &m_strTxAntennaGain, strInifile)) return FALSE;
+	if (!LoadValue(_T("RxAntennaGain"), &m_strRxAntennaGain, strInifile)) return FALSE;
+	if (!LoadValue(_T("1GbpsBwRxSensitivityLevel"), &m_str1GbpsBwRxSensitivityLevel, strInifile)) return FALSE;
+	if (!LoadValue(_T("2GbpsBwRxSensitivityLevel"), &m_str2GbpsBwRxSensitivityLevel, strInifile)) return FALSE;
+	if (!LoadValue(_T("3GbpsBwRxSensitivityLevel"), &m_str3GbpsBwRxSensitivityLevel, strInifile)) return FALSE;
+	if (!LoadValue(_T("4GbpsBwRxSensitivityLevel"), &m_str4GbpsBwRxSensitivityLevel, strInifile)) return FALSE;
+	if (!LoadValue(_T("5GbpsBwRxSensitivityLevel"), &m_str5GbpsBwRxSensitivityLevel, strInifile)) return FALSE;
+	if (!LoadValue(_T("6GbpsBwRxSensitivityLevel"), &m_str6GbpsBwRxSensitivityLevel, strInifile)) return FALSE;
+	if (!LoadValue(_T("7GbpsBwRxSensitivityLevel"), &m_str7GbpsBwRxSensitivityLevel, strInifile)) return FALSE;
+	if (!LoadValue(_T("8GbpsBwRxSensitivityLevel"), &m_str8GbpsBwRxSensitivityLevel, strInifile)) return FALSE;
+	if (!LoadValue(_T("9GbpsBwRxSensitivityLevel"), &m_str9GbpsBwRxSensitivityLevel, strInifile)) return FALSE;
+
+	return TRUE;
 }

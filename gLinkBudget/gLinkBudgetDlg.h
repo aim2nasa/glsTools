@@ -59,4 +59,5 @@ public:
 	void fillLinkBudget(int nRslv);
 	void comparison(CString& m_strGbpsBwRxSensitivityLevel, int nRslv, int nItem);
 	afx_msg void OnNMCustomdrawLinkBudgetList(NMHDR* pNMHDR, LRESULT* pResult);
+	BOOL Load(CString fileName);
 };
