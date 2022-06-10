@@ -70,4 +70,6 @@ public:
 	afx_msg void OnNMClkReceiverSignalLevelList(NMHDR* pNMHDR, LRESULT* pResult);
 	void SetControlSlider(int min, int max, CString strCurVal, int ticFreq, int lineSize, int pageSize);
 	int SliderValueUpdate();
+	afx_msg void OnNMClickFreeSpacePathLossList(NMHDR* pNMHDR, LRESULT* pResult);
+	afx_msg void OnNMClickLinkBudgetList(NMHDR* pNMHDR, LRESULT* pResult);
 };

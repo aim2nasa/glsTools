@@ -85,6 +85,8 @@ BEGIN_MESSAGE_MAP(CgLinkBudgetDlg, CDialogEx)
 	ON_WM_QUERYDRAGICON()
 	ON_NOTIFY(NM_CUSTOMDRAW, IDC_LINK_BUDGET_LIST, OnNMCustomdrawLinkBudgetList)
 	ON_NOTIFY(NM_CLICK, IDC_RECEIVER_SIGNAL_LEVEL_LIST, &CgLinkBudgetDlg::OnNMClkReceiverSignalLevelList)
+	ON_NOTIFY(NM_CLICK, IDC_FREE_SPACE_PATH_LOSS_LIST, &CgLinkBudgetDlg::OnNMClickFreeSpacePathLossList)
+	ON_NOTIFY(NM_CLICK, IDC_LINK_BUDGET_LIST, &CgLinkBudgetDlg::OnNMClickLinkBudgetList)
 END_MESSAGE_MAP()
 
 
@@ -474,4 +476,23 @@ int CgLinkBudgetDlg::SliderValueUpdate()
 	m_strSliderValue.Format(_T("%.1f"), float(curPos));
 	UpdateData(FALSE);
 	return curPos;
+}
+
+void CgLinkBudgetDlg::OnNMClickFreeSpacePathLossList(NMHDR* pNMHDR, LRESULT* pResult)
+{
+	LPNMITEMACTIVATE pNMItemActivate = reinterpret_cast<LPNMITEMACTIVATE>(pNMHDR);
+	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
+	ShowSlider(SW_HIDE);
+
+	*pResult = 0;
+}
+
+
+void CgLinkBudgetDlg::OnNMClickLinkBudgetList(NMHDR* pNMHDR, LRESULT* pResult)
+{
+	LPNMITEMACTIVATE pNMItemActivate = reinterpret_cast<LPNMITEMACTIVATE>(pNMHDR);
+	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
+	ShowSlider(SW_HIDE);
+
+	*pResult = 0;
 }
