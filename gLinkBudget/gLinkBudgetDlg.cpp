@@ -12,6 +12,8 @@
 #define new DEBUG_NEW
 #endif
 
+const int MinDistance = 0;
+const int MaxDistance = 6;
 const int MinTxOutputPower = 0;
 const int MaxTxOutputPower = 50;
 const int MinPathLoss = 0;
@@ -128,6 +130,7 @@ BOOL CgLinkBudgetDlg::OnInitDialog()
 
 	fillLinkBudget(fillReceiverSignalLevel(fillFreeSpacePathLoss()));
 
+	m_strDistance.Format(_T("%.1f"), 0.);
 	ShowSlider(SW_HIDE);
 	return TRUE;  // 포커스를 컨트롤에 설정하지 않으면 TRUE를 반환합니다.
 }
@@ -483,7 +486,19 @@ void CgLinkBudgetDlg::OnNMClickFreeSpacePathLossList(NMHDR* pNMHDR, LRESULT* pRe
 {
 	LPNMITEMACTIVATE pNMItemActivate = reinterpret_cast<LPNMITEMACTIVATE>(pNMHDR);
 	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
-	ShowSlider(SW_HIDE);
+
+	NM_LISTVIEW* pNMListView = (NM_LISTVIEW*)pNMHDR;
+	int idx = pNMListView->iItem;
+
+	if (idx==1) {	//Distance(m)
+		SetControlSlider(10 * MinDistance, 10 * MaxDistance, m_strDistance, 10, 1, 10);
+		m_strSelectedStatic = m_fsplCtrl.GetItemText(idx, 0);
+		ShowSlider(SW_SHOW);
+		UpdateData(FALSE);
+	}
+	else {
+		ShowSlider(SW_HIDE);
+	}
 
 	*pResult = 0;
 }

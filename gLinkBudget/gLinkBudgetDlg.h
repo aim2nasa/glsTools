@@ -57,6 +57,7 @@ public:
 	CString m_strSliderMin;
 	CString m_strSliderMax;
 	CString m_strSliderValue;
+	CString m_strDistance;
 
 	void L(const TCHAR* str, ...);
 	BOOL LoadValue(TCHAR* regTagName, CString* pTargetStr, CString fileName);
