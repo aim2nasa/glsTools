@@ -72,4 +72,5 @@ public:
 	int SliderValueUpdate();
 	afx_msg void OnNMClickFreeSpacePathLossList(NMHDR* pNMHDR, LRESULT* pResult);
 	afx_msg void OnNMClickLinkBudgetList(NMHDR* pNMHDR, LRESULT* pResult);
+	afx_msg void OnHScroll(UINT nSBCode, UINT nPos, CScrollBar* pScrollBar);
 };

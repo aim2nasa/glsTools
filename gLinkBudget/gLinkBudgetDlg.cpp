@@ -87,6 +87,7 @@ BEGIN_MESSAGE_MAP(CgLinkBudgetDlg, CDialogEx)
 	ON_NOTIFY(NM_CLICK, IDC_RECEIVER_SIGNAL_LEVEL_LIST, &CgLinkBudgetDlg::OnNMClkReceiverSignalLevelList)
 	ON_NOTIFY(NM_CLICK, IDC_FREE_SPACE_PATH_LOSS_LIST, &CgLinkBudgetDlg::OnNMClickFreeSpacePathLossList)
 	ON_NOTIFY(NM_CLICK, IDC_LINK_BUDGET_LIST, &CgLinkBudgetDlg::OnNMClickLinkBudgetList)
+	ON_WM_HSCROLL()
 END_MESSAGE_MAP()
 
 
@@ -427,16 +428,16 @@ void CgLinkBudgetDlg::OnNMClkReceiverSignalLevelList(NMHDR* pNMHDR, LRESULT* pRe
 	if (idx >= 0 && idx <= 3) {
 		switch (idx) {
 		case 0:	//Tx Output Power
-			SetControlSlider(MinTxOutputPower, MaxTxOutputPower, m_strTxOutputPower, 1, 1, 10);
+			SetControlSlider(10 * MinTxOutputPower, 10 * MaxTxOutputPower, m_strTxOutputPower, 10, 1, 10);
 			break;
 		case 1:	//Path Loss
-			SetControlSlider(MinPathLoss, MaxPathLoss, m_strPathLoss, 1, 1, 10);
+			SetControlSlider(10 * MinPathLoss, 10 * MaxPathLoss, m_strPathLoss, 10, 1, 10);
 			break;
 		case 2:	//Tx Antenna Gain
-			SetControlSlider(MinTxAntennaGain, MaxTxAntennaGain, m_strTxAntennaGain, 1, 1, 10);
+			SetControlSlider(10 * MinTxAntennaGain, 10 * MaxTxAntennaGain, m_strTxAntennaGain, 10, 1, 10);
 			break;
 		case 3:	//Rx Antenna Gain
-			SetControlSlider(MinRxAntennaGain, MaxRxAntennaGain, m_strRxAntennaGain, 1, 1, 10);
+			SetControlSlider(10 * MinRxAntennaGain, 10 * MaxRxAntennaGain, m_strRxAntennaGain, 10, 1, 10);
 			break;
 		default:
 			break;
@@ -462,7 +463,7 @@ void CgLinkBudgetDlg::SetControlSlider(int min, int max, CString strCurVal, int 
 	m_controlSlider.SetRange(min, max);
 	m_controlSlider.SetRangeMin(min);
 	m_controlSlider.SetRangeMax(max);
-	m_controlSlider.SetPos(curVal);
+	m_controlSlider.SetPos(curVal*10);
 	m_controlSlider.SetTicFreq(ticFreq);
 	m_controlSlider.SetLineSize(lineSize);
 	m_controlSlider.SetPageSize(pageSize);
@@ -473,7 +474,7 @@ void CgLinkBudgetDlg::SetControlSlider(int min, int max, CString strCurVal, int 
 int CgLinkBudgetDlg::SliderValueUpdate()
 {
 	int curPos = m_controlSlider.GetPos();
-	m_strSliderValue.Format(_T("%.1f"), float(curPos));
+	m_strSliderValue.Format(_T("%.1f"), float(curPos)/10.);
 	UpdateData(FALSE);
 	return curPos;
 }
@@ -495,4 +496,15 @@ void CgLinkBudgetDlg::OnNMClickLinkBudgetList(NMHDR* pNMHDR, LRESULT* pResult)
 	ShowSlider(SW_HIDE);
 
 	*pResult = 0;
+}
+
+
+void CgLinkBudgetDlg::OnHScroll(UINT nSBCode, UINT nPos, CScrollBar* pScrollBar)
+{
+	// TODO: 여기에 메시지 처리기 코드를 추가 및/또는 기본값을 호출합니다.
+	if (IDC_CONTROL_SLIDER == pScrollBar->GetDlgCtrlID()) {
+		SliderValueUpdate();
+	}
+
+	CDialogEx::OnHScroll(nSBCode, nPos, pScrollBar);
 }
