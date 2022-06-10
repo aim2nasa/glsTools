@@ -76,6 +76,7 @@ void CgLinkBudgetDlg::DoDataExchange(CDataExchange* pDX)
 	DDX_Text(pDX, IDC_SELECTED_STATIC, m_strSelectedStatic);
 	DDX_Text(pDX, IDC_SLIDER_MIN_STATIC, m_strSliderMin);
 	DDX_Text(pDX, IDC_SLIDER_MAX_STATIC, m_strSliderMax);
+	DDX_Text(pDX, IDC_SLIDER_VALUE_STATIC, m_strSliderValue);
 }
 
 BEGIN_MESSAGE_MAP(CgLinkBudgetDlg, CDialogEx)
