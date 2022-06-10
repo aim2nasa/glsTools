@@ -12,6 +12,15 @@
 #define new DEBUG_NEW
 #endif
 
+const int MinTxOutputPower = 0;
+const int MaxTxOutputPower = 50;
+const int MinPathLoss = 0;
+const int MaxPathLoss = 50;
+const int MinTxAntennaGain = 0;
+const int MaxTxAntennaGain = 50;
+const int MinRxAntennaGain = 0;
+const int MaxRxAntennaGain = 50;
+
 
 // 응용 프로그램 정보에 사용되는 CAboutDlg 대화 상자입니다.
 
@@ -65,6 +74,8 @@ void CgLinkBudgetDlg::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_LINK_BUDGET_LIST, m_lbCtrl);
 	DDX_Control(pDX, IDC_CONTROL_SLIDER, m_controlSlider);
 	DDX_Text(pDX, IDC_SELECTED_STATIC, m_strSelectedStatic);
+	DDX_Text(pDX, IDC_SLIDER_MIN_STATIC, m_strSliderMin);
+	DDX_Text(pDX, IDC_SLIDER_MAX_STATIC, m_strSliderMax);
 }
 
 BEGIN_MESSAGE_MAP(CgLinkBudgetDlg, CDialogEx)
@@ -409,18 +420,33 @@ void CgLinkBudgetDlg::OnNMDblclkReceiverSignalLevelList(NMHDR* pNMHDR, LRESULT* 
 	NM_LISTVIEW* pNMListView = (NM_LISTVIEW*)pNMHDR;
 	int idx = pNMListView->iItem;
 
-	switch (idx) {
-	case 0:	//Tx Output Power
-	case 1:	//Path Loss
-	case 2:	//Tx Antenna Gain
-	case 3:	//Rx Antenna Gain
+	if (idx >= 0 && idx <= 3) {
+		switch (idx) {
+		case 0:	//Tx Output Power
+			m_strSliderMin.Format(_T("Min:%d"),MinTxOutputPower);
+			m_strSliderMax.Format(_T("Max:%d"), MaxTxOutputPower);
+			break;
+		case 1:	//Path Loss
+			m_strSliderMin.Format(_T("Min:%d"), MinPathLoss);
+			m_strSliderMax.Format(_T("Max:%d"), MaxPathLoss);
+			break;
+		case 2:	//Tx Antenna Gain
+			m_strSliderMin.Format(_T("Min:%d"), MinTxAntennaGain);
+			m_strSliderMax.Format(_T("Max:%d"), MaxTxAntennaGain);
+			break;
+		case 3:	//Rx Antenna Gain
+			m_strSliderMin.Format(_T("Min:%d"), MinRxAntennaGain);
+			m_strSliderMax.Format(_T("Max:%d"), MaxRxAntennaGain);
+			break;
+		default:
+			break;
+		}
 		m_strSelectedStatic = m_rslCtrl.GetItemText(idx, 0);
 		ShowSlider(SW_SHOW);
 		UpdateData(FALSE);
-		break;
-	default:
+	}
+	else {
 		ShowSlider(SW_HIDE);
-		break;
 	}
 
 	*pResult = 0;
