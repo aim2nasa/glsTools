@@ -457,8 +457,8 @@ void CgLinkBudgetDlg::SetControlSlider(int min, int max, CString strCurVal, int 
 {
 	int curVal = _tcstol(strCurVal.GetBuffer(), NULL, 10);
 
-	m_strSliderMin.Format(_T("Min:%d"), min);
-	m_strSliderMax.Format(_T("Max:%d"), max);
+	m_strSliderMin.Format(_T("Min:%d"), min/10);
+	m_strSliderMax.Format(_T("Max:%d"), max/10);
 
 	m_controlSlider.SetRange(min, max);
 	m_controlSlider.SetRangeMin(min);
