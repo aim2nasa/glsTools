@@ -12,7 +12,7 @@
 #define IDC_FREE_SPACE_PATH_LOSS_LIST   1001
 #define IDC_RECEIVER_SIGNAL_LEVEL_LIST  1002
 #define IDC_LINK_BUDGET_LIST            1003
-#define IDC_MAIN_SLIDER                 1004
+#define IDC_CONTROL_SLIDER              1004
 #define IDC_SLIDER_MAX_STATIC           1005
 #define IDC_SLIDER_MIN_STATIC           1006
 #define IDC_SELECTED_STATIC             1007

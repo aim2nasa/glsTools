@@ -52,6 +52,7 @@ public:
 	CListCtrl m_fsplCtrl;
 	CListCtrl m_rslCtrl;
 	CListCtrl m_lbCtrl;
+	CSliderCtrl m_controlSlider;
 
 	void L(const TCHAR* str, ...);
 	BOOL LoadValue(TCHAR* regTagName, CString* pTargetStr, CString fileName);
