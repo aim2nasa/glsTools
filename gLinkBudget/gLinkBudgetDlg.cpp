@@ -510,20 +510,16 @@ void CgLinkBudgetDlg::OnHScroll(UINT nSBCode, UINT nPos, CScrollBar* pScrollBar)
 			if (m_strSelectedStatic == m_rslCtrl.GetItemText(i, 0)) {
 				switch (i) {
 				case 0:
-					m_strTxOutputPower.Format(_T("%.1f"), float(curPos) / 10.);
-					for (int j = 1; j <= 15; j++) m_rslCtrl.SetItemText(i, j, m_strTxOutputPower);
+					updateStrValue(m_strTxOutputPower, m_rslCtrl, i, curPos, 1, 15);
 					break;
 				case 1:
-					m_strPathLoss.Format(_T("%.1f"), float(curPos) / 10.);
-					for (int j = 1; j <= 15; j++) m_rslCtrl.SetItemText(i, j, m_strPathLoss);
+					updateStrValue(m_strPathLoss, m_rslCtrl, i, curPos, 1, 15);
 					break;
 				case 2:
-					m_strTxAntennaGain.Format(_T("%.1f"), float(curPos) / 10.);
-					for (int j = 1; j <= 15; j++) m_rslCtrl.SetItemText(i, j, m_strTxAntennaGain);
+					updateStrValue(m_strTxAntennaGain, m_rslCtrl, i, curPos, 1, 15);
 					break;
 				case 3:
-					m_strRxAntennaGain.Format(_T("%.1f"), float(curPos) / 10.);
-					for (int j = 1; j <= 15; j++) m_rslCtrl.SetItemText(i, j, m_strRxAntennaGain);
+					updateStrValue(m_strRxAntennaGain, m_rslCtrl, i, curPos, 1, 15);
 					break;
 				}
 			}
@@ -532,4 +528,10 @@ void CgLinkBudgetDlg::OnHScroll(UINT nSBCode, UINT nPos, CScrollBar* pScrollBar)
 	}
 
 	CDialogEx::OnHScroll(nSBCode, nPos, pScrollBar);
+}
+
+void CgLinkBudgetDlg::updateStrValue(CString& strValue, CListCtrl& listCtrl, int row, int curPos, int start, int end)
+{
+	strValue.Format(_T("%.1f"), float(curPos) / 10.);
+	for (int j = start; j <= end; j++) listCtrl.SetItemText(row, j, strValue);
 }
