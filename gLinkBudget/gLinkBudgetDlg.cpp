@@ -15,7 +15,7 @@
 const int MinTxOutputPower = 0;
 const int MaxTxOutputPower = 50;
 const int MinPathLoss = 0;
-const int MaxPathLoss = 50;
+const int MaxPathLoss = 10;
 const int MinTxAntennaGain = 0;
 const int MaxTxAntennaGain = 50;
 const int MinRxAntennaGain = 0;
