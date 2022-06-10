@@ -12,6 +12,10 @@
 #define IDC_FREE_SPACE_PATH_LOSS_LIST   1001
 #define IDC_RECEIVER_SIGNAL_LEVEL_LIST  1002
 #define IDC_LINK_BUDGET_LIST            1003
+#define IDC_MAIN_SLIDER                 1004
+#define IDC_SLIDER_MAX_STATIC           1005
+#define IDC_SLIDER_MIN_STATIC           1006
+#define IDC_SELECTED_STATIC             1007
 
 // Next default values for new objects
 // 
@@ -19,7 +23,7 @@
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        133
 #define _APS_NEXT_COMMAND_VALUE         32771
-#define _APS_NEXT_CONTROL_VALUE         1002
+#define _APS_NEXT_CONTROL_VALUE         1008
 #define _APS_NEXT_SYMED_VALUE           101
 #endif
 #endif
