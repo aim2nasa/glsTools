@@ -58,6 +58,7 @@ public:
 	CString m_strSliderMax;
 	CString m_strSliderValue;
 	CString m_strDistance;
+	BOOL m_bGradient;
 
 	void L(const TCHAR* str, ...);
 	BOOL LoadValue(TCHAR* regTagName, CString* pTargetStr, CString fileName);
@@ -79,4 +80,5 @@ public:
 	void clearReceiverSignalLevel();
 	void clearLinkBudget();
 	void clearList();
+	afx_msg void OnBnClickedGradientCheck();
 };

@@ -79,6 +79,7 @@ void CgLinkBudgetDlg::DoDataExchange(CDataExchange* pDX)
 	DDX_Text(pDX, IDC_SLIDER_MIN_STATIC, m_strSliderMin);
 	DDX_Text(pDX, IDC_SLIDER_MAX_STATIC, m_strSliderMax);
 	DDX_Text(pDX, IDC_SLIDER_VALUE_STATIC, m_strSliderValue);
+	DDX_Check(pDX, IDC_GRADIENT_CHECK, m_bGradient);
 }
 
 BEGIN_MESSAGE_MAP(CgLinkBudgetDlg, CDialogEx)
@@ -90,6 +91,7 @@ BEGIN_MESSAGE_MAP(CgLinkBudgetDlg, CDialogEx)
 	ON_NOTIFY(NM_CLICK, IDC_FREE_SPACE_PATH_LOSS_LIST, &CgLinkBudgetDlg::OnNMClickFreeSpacePathLossList)
 	ON_NOTIFY(NM_CLICK, IDC_LINK_BUDGET_LIST, &CgLinkBudgetDlg::OnNMClickLinkBudgetList)
 	ON_WM_HSCROLL()
+	ON_BN_CLICKED(IDC_GRADIENT_CHECK, &CgLinkBudgetDlg::OnBnClickedGradientCheck)
 END_MESSAGE_MAP()
 
 
@@ -375,15 +377,28 @@ void CgLinkBudgetDlg::OnNMCustomdrawLinkBudgetList(NMHDR* pNMHDR, LRESULT* pResu
 
 			if ((nRow >= 0 && nRow <= 8) && (nSub >= 2 && nSub <= 16)) {
 				double diff = _ttof(m_lbCtrl.GetItemText(nRow, nSub));
-				if (diff > 0.) {
-					int nBlue = (int)(255. * (diff / _ttof(m_lbCtrl.GetItemText(0, 2))));
-					lplvcd->clrTextBk = RGB(255-nBlue, 255-nBlue, 255);
-					lplvcd->clrText = RGB(0, 0, 0);
+
+				if (m_bGradient) {
+					if (diff > 0.) {
+						int nBlue = (int)(255. * (diff / _ttof(m_lbCtrl.GetItemText(0, 2))));
+						lplvcd->clrTextBk = RGB(255 - nBlue, 255 - nBlue, 255);
+						lplvcd->clrText = RGB(0, 0, 0);
+					}
+					else {
+						int nRed = (int)(255. * (diff / _ttof(m_lbCtrl.GetItemText(8, 16))));
+						lplvcd->clrTextBk = RGB(255, 255 - nRed, 255 - nRed);
+						lplvcd->clrText = RGB(0, 0, 0);
+					}
 				}
 				else {
-					int nRed = (int)(255. * (diff / _ttof(m_lbCtrl.GetItemText(8, 16))));
-					lplvcd->clrTextBk = RGB(255, 255-nRed, 255-nRed);
-					lplvcd->clrText = RGB(0, 0, 0);
+					if (diff > 0.) {
+						lplvcd->clrTextBk = RGB(0, 0, 255);
+						lplvcd->clrText = RGB(255, 255, 255);
+					}
+					else {
+						lplvcd->clrTextBk = RGB(255, 0, 0);
+						lplvcd->clrText = RGB(0, 0, 0);
+					}
 				}
 			}
 		break;
@@ -591,4 +606,14 @@ void CgLinkBudgetDlg::clearList()
 	clearLinkBudget();
 	clearReceiverSignalLevel();
 	clearFreeSpacePathLoss();
+}
+
+void CgLinkBudgetDlg::OnBnClickedGradientCheck()
+{
+	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
+	m_bGradient = !m_bGradient;
+	UpdateData(FALSE);
+
+	clearList();
+	fillLinkBudget(fillReceiverSignalLevel(fillFreeSpacePathLoss()));
 }
