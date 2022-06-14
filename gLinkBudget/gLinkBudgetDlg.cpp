@@ -80,6 +80,9 @@ void CgLinkBudgetDlg::DoDataExchange(CDataExchange* pDX)
 	DDX_Text(pDX, IDC_SLIDER_MAX_STATIC, m_strSliderMax);
 	DDX_Text(pDX, IDC_SLIDER_VALUE_STATIC, m_strSliderValue);
 	DDX_Check(pDX, IDC_GRADIENT_CHECK, m_bGradient);
+	DDX_Text(pDX, IDC_FREQUENCY_VALUE_STATIC, m_strDistFreq);
+	DDX_Text(pDX, IDC_H2OATTEN_VALUE_STATIC, m_strDistH2OAtten);
+	DDX_Text(pDX, IDC_FSPL_VALUE_STATIC, m_strDistFSPL);
 }
 
 BEGIN_MESSAGE_MAP(CgLinkBudgetDlg, CDialogEx)

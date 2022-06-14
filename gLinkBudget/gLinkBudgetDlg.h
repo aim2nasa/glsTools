@@ -59,6 +59,9 @@ public:
 	CString m_strSliderValue;
 	CString m_strDistance;
 	BOOL m_bGradient;
+	CString m_strDistFreq;
+	CString m_strDistH2OAtten;
+	CString m_strDistFSPL;
 
 	void L(const TCHAR* str, ...);
 	BOOL LoadValue(TCHAR* regTagName, CString* pTargetStr, CString fileName);
