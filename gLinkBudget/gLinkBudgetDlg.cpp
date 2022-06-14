@@ -345,7 +345,11 @@ void CgLinkBudgetDlg::comparison(CString& m_strGbpsBwRxSensitivityLevel,int nRsl
 	for (int i = 2; i <= 16; i++) {
 		double rslv = _ttof(m_rslCtrl.GetItemText(nRslv, i - 1).GetBuffer());
 		double sens = _ttof(m_strGbpsBwRxSensitivityLevel.GetBuffer());
-		(rslv >= sens) ? m_lbCtrl.SetItemText(nItem, i, _T("O")) : m_lbCtrl.SetItemText(nItem, i, _T("X"));
+		double diff = rslv - sens;
+
+		CString str;
+		str.Format(_T("%.4f"), diff);
+		m_lbCtrl.SetItemText(nItem, i, str);
 	}
 }
 
