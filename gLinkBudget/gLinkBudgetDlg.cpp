@@ -134,6 +134,7 @@ BOOL CgLinkBudgetDlg::OnInitDialog()
 
 	m_strDistance.Format(_T("%.1f"), 0.);
 	ShowSlider(SW_HIDE);
+	ShowParams(SW_HIDE);
 	return TRUE;  // 포커스를 컨트롤에 설정하지 않으면 TRUE를 반환합니다.
 }
 
@@ -471,10 +472,12 @@ void CgLinkBudgetDlg::OnNMClkReceiverSignalLevelList(NMHDR* pNMHDR, LRESULT* pRe
 		}
 		m_strSelectedStatic = m_rslCtrl.GetItemText(idx, 0);
 		ShowSlider(SW_SHOW);
+		ShowParams(SW_HIDE);
 		UpdateData(FALSE);
 	}
 	else {
 		ShowSlider(SW_HIDE);
+		ShowParams(SW_HIDE);
 	}
 
 	*pResult = 0;
@@ -518,10 +521,12 @@ void CgLinkBudgetDlg::OnNMClickFreeSpacePathLossList(NMHDR* pNMHDR, LRESULT* pRe
 		SetControlSlider(10 * MinDistance, 10 * MaxDistance, m_strDistance, 10, 1, 10);
 		m_strSelectedStatic = m_fsplCtrl.GetItemText(idx, 0);
 		ShowSlider(SW_SHOW);
+		ShowParams(SW_SHOW);
 		UpdateData(FALSE);
 	}
 	else {
 		ShowSlider(SW_HIDE);
+		ShowParams(SW_HIDE);
 	}
 
 	*pResult = 0;
@@ -533,6 +538,7 @@ void CgLinkBudgetDlg::OnNMClickLinkBudgetList(NMHDR* pNMHDR, LRESULT* pResult)
 	LPNMITEMACTIVATE pNMItemActivate = reinterpret_cast<LPNMITEMACTIVATE>(pNMHDR);
 	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
 	ShowSlider(SW_HIDE);
+	ShowParams(SW_HIDE);
 
 	*pResult = 0;
 }
@@ -616,4 +622,19 @@ void CgLinkBudgetDlg::OnBnClickedGradientCheck()
 
 	clearList();
 	fillLinkBudget(fillReceiverSignalLevel(fillFreeSpacePathLoss()));
+}
+
+void CgLinkBudgetDlg::ShowParams(int nCmdShow)
+{
+	GetDlgItem(IDC_FSPL_GROUP_STATIC)->ShowWindow(nCmdShow);
+	GetDlgItem(IDC_DISTANCE_FREQUENCY_STATIC)->ShowWindow(nCmdShow);
+	GetDlgItem(IDC_DISTANCE_H2OATTEN_STATIC)->ShowWindow(nCmdShow);
+	GetDlgItem(IDC_DISTANCE_FSPL_STATIC)->ShowWindow(nCmdShow);
+
+	GetDlgItem(IDC_RSL_GROUP_STATIC)->ShowWindow(nCmdShow);
+	GetDlgItem(IDC_DISTANCE_TXOP_STATIC)->ShowWindow(nCmdShow);
+	GetDlgItem(IDC_DISTANCE_PATHLOSS_STATIC)->ShowWindow(nCmdShow);
+	GetDlgItem(IDC_DISTANCE_TX_ANT_GAIN_STATIC)->ShowWindow(nCmdShow);
+	GetDlgItem(IDC_DISTANCE_RX_ANT_GAIN_STATIC)->ShowWindow(nCmdShow);
+	GetDlgItem(IDC_DISTANCE_RECEIVER_SIGNAL_LEVEL_STATIC)->ShowWindow(nCmdShow);
 }

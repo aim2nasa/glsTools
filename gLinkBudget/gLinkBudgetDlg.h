@@ -81,4 +81,5 @@ public:
 	void clearLinkBudget();
 	void clearList();
 	afx_msg void OnBnClickedGradientCheck();
+	void ShowParams(int nCmdShow);
 };
