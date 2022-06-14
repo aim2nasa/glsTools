@@ -376,11 +376,13 @@ void CgLinkBudgetDlg::OnNMCustomdrawLinkBudgetList(NMHDR* pNMHDR, LRESULT* pResu
 			if ((nRow >= 0 && nRow <= 8) && (nSub >= 2 && nSub <= 16)) {
 				double diff = _ttof(m_lbCtrl.GetItemText(nRow, nSub));
 				if (diff > 0.) {
-					lplvcd->clrTextBk = RGB(0, 0, 255);
-					lplvcd->clrText = RGB(255, 255, 255);
+					int nBlue = (int)(255. * (diff / _ttof(m_lbCtrl.GetItemText(0, 2))));
+					lplvcd->clrTextBk = RGB(255-nBlue, 255-nBlue, 255);
+					lplvcd->clrText = RGB(0, 0, 0);
 				}
 				else {
-					lplvcd->clrTextBk = RGB(255, 0, 0);
+					int nRed = (int)(255. * (diff / _ttof(m_lbCtrl.GetItemText(8, 16))));
+					lplvcd->clrTextBk = RGB(255, 255-nRed, 255-nRed);
 					lplvcd->clrText = RGB(0, 0, 0);
 				}
 			}
