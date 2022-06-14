@@ -630,6 +630,9 @@ void CgLinkBudgetDlg::ShowParams(int nCmdShow)
 	GetDlgItem(IDC_DISTANCE_FREQUENCY_STATIC)->ShowWindow(nCmdShow);
 	GetDlgItem(IDC_DISTANCE_H2OATTEN_STATIC)->ShowWindow(nCmdShow);
 	GetDlgItem(IDC_DISTANCE_FSPL_STATIC)->ShowWindow(nCmdShow);
+	GetDlgItem(IDC_FREQUENCY_VALUE_STATIC)->ShowWindow(nCmdShow);
+	GetDlgItem(IDC_H2OATTEN_VALUE_STATIC)->ShowWindow(nCmdShow);
+	GetDlgItem(IDC_FSPL_VALUE_STATIC)->ShowWindow(nCmdShow);
 
 	GetDlgItem(IDC_RSL_GROUP_STATIC)->ShowWindow(nCmdShow);
 	GetDlgItem(IDC_DISTANCE_TXOP_STATIC)->ShowWindow(nCmdShow);

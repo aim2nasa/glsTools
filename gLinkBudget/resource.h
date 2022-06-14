@@ -28,6 +28,9 @@
 #define IDC_DISTANCE_RECEIVER_SIGNAL_LEVEL_STATIC 1017
 #define IDC_FSPL_GROUP_STATIC           1018
 #define IDC_RSL_GROUP_STATIC            1019
+#define IDC_FREQUENCY_VALUE_STATIC      1020
+#define IDC_H2OATTEN_VALUE_STATIC       1022
+#define IDC_FSPL_VALUE_STATIC           1023
 
 // Next default values for new objects
 // 
