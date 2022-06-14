@@ -655,6 +655,11 @@ void CgLinkBudgetDlg::ShowParams(int nCmdShow)
 	GetDlgItem(IDC_DISTANCE_TX_ANT_GAIN_STATIC)->ShowWindow(nCmdShow);
 	GetDlgItem(IDC_DISTANCE_RX_ANT_GAIN_STATIC)->ShowWindow(nCmdShow);
 	GetDlgItem(IDC_DISTANCE_RECEIVER_SIGNAL_LEVEL_STATIC)->ShowWindow(nCmdShow);
+	GetDlgItem(IDC_TXOP_VALUE_STATIC)->ShowWindow(nCmdShow);
+	GetDlgItem(IDC_PATHLOSS_VALUE_STATIC)->ShowWindow(nCmdShow);
+	GetDlgItem(IDC_TX_ANT_GAIN_VALUE_STATIC)->ShowWindow(nCmdShow);
+	GetDlgItem(IDC_RX_ANT_GAIN_VALUE_STATIC)->ShowWindow(nCmdShow);
+	GetDlgItem(IDC_RECEIVER_SIGNAL_LEVEL_VALUE_STATIC)->ShowWindow(nCmdShow);
 }
 
 void CgLinkBudgetDlg::calcLinkBudget(double dist)
