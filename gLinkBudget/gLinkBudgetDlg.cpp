@@ -555,29 +555,34 @@ void CgLinkBudgetDlg::OnHScroll(UINT nSBCode, UINT nPos, CScrollBar* pScrollBar)
 		int curPos = SliderValueUpdate();
 
 		UpdateData(TRUE);
-		for (int i = 0; i < m_rslCtrl.GetItemCount(); i++) {
-			if (m_strSelectedStatic == m_rslCtrl.GetItemText(i, 0)) {
-				switch (i) {
-				case 0:
-					updateStrValue(m_strTxOutputPower, m_rslCtrl, i, curPos, 1, 15);
-					clearList();
-					fillLinkBudget(fillReceiverSignalLevel(fillFreeSpacePathLoss()));
-					break;
-				case 1:
-					updateStrValue(m_strPathLoss, m_rslCtrl, i, curPos, 1, 15);
-					clearList();
-					fillLinkBudget(fillReceiverSignalLevel(fillFreeSpacePathLoss()));
-					break;
-				case 2:
-					updateStrValue(m_strTxAntennaGain, m_rslCtrl, i, curPos, 1, 15);
-					clearList();
-					fillLinkBudget(fillReceiverSignalLevel(fillFreeSpacePathLoss()));
-					break;
-				case 3:
-					updateStrValue(m_strRxAntennaGain, m_rslCtrl, i, curPos, 1, 15);
-					clearList();
-					fillLinkBudget(fillReceiverSignalLevel(fillFreeSpacePathLoss()));
-					break;
+		if (m_strSelectedStatic == _T("Distance(m)")) {
+			calcLinkBudget((double)curPos/10.);
+		}
+		else {
+			for (int i = 0; i < m_rslCtrl.GetItemCount(); i++) {
+				if (m_strSelectedStatic == m_rslCtrl.GetItemText(i, 0)) {
+					switch (i) {
+					case 0:
+						updateStrValue(m_strTxOutputPower, m_rslCtrl, i, curPos, 1, 15);
+						clearList();
+						fillLinkBudget(fillReceiverSignalLevel(fillFreeSpacePathLoss()));
+						break;
+					case 1:
+						updateStrValue(m_strPathLoss, m_rslCtrl, i, curPos, 1, 15);
+						clearList();
+						fillLinkBudget(fillReceiverSignalLevel(fillFreeSpacePathLoss()));
+						break;
+					case 2:
+						updateStrValue(m_strTxAntennaGain, m_rslCtrl, i, curPos, 1, 15);
+						clearList();
+						fillLinkBudget(fillReceiverSignalLevel(fillFreeSpacePathLoss()));
+						break;
+					case 3:
+						updateStrValue(m_strRxAntennaGain, m_rslCtrl, i, curPos, 1, 15);
+						clearList();
+						fillLinkBudget(fillReceiverSignalLevel(fillFreeSpacePathLoss()));
+						break;
+					}
 				}
 			}
 		}
