@@ -83,6 +83,12 @@ void CgLinkBudgetDlg::DoDataExchange(CDataExchange* pDX)
 	DDX_Text(pDX, IDC_FREQUENCY_VALUE_STATIC, m_strDistFreq);
 	DDX_Text(pDX, IDC_H2OATTEN_VALUE_STATIC, m_strDistH2OAtten);
 	DDX_Text(pDX, IDC_FSPL_VALUE_STATIC, m_strDistFSPL);
+
+	DDX_Text(pDX, IDC_TXOP_VALUE_STATIC, m_strDistTxOutPower);
+	DDX_Text(pDX, IDC_PATHLOSS_VALUE_STATIC, m_strDistPathLoss);
+	DDX_Text(pDX, IDC_TX_ANT_GAIN_VALUE_STATIC, m_strDistTxAntGain);
+	DDX_Text(pDX, IDC_RX_ANT_GAIN_VALUE_STATIC, m_strDistRxAntGain);
+	DDX_Text(pDX, IDC_RECEIVER_SIGNAL_LEVEL_VALUE_STATIC, m_strDistRecvSigLev);
 }
 
 BEGIN_MESSAGE_MAP(CgLinkBudgetDlg, CDialogEx)
@@ -662,6 +668,18 @@ void CgLinkBudgetDlg::calcLinkBudget(double dist)
 	m_strDistFreq.Format(_T("%.4f"), freq);
 	m_strDistH2OAtten.Format(_T("%.4f"), h20a);
 	m_strDistFSPL.Format(_T("%.4f"), fspl);
+
+	double txop = _ttof(m_strTxOutputPower.GetBuffer());
+	double txag = _ttof(m_strTxAntennaGain.GetBuffer());
+	double rxag = _ttof(m_strRxAntennaGain.GetBuffer());
+	double ptls = _ttof(m_strPathLoss.GetBuffer());
+	double rslv = txop + txag + rxag - fspl - ptls;
+
+	m_strDistTxOutPower.Format(_T("%.4f"), txop);
+	m_strDistTxAntGain.Format(_T("%.4f"), txag);
+	m_strDistRxAntGain.Format(_T("%.4f"), rxag);
+	m_strDistPathLoss.Format(_T("%.4f"), ptls);
+	m_strDistRecvSigLev.Format(_T("%.4f"), rslv);
 
 	UpdateData(FALSE);
 }

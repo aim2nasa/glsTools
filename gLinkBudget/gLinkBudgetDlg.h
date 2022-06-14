@@ -62,6 +62,11 @@ public:
 	CString m_strDistFreq;
 	CString m_strDistH2OAtten;
 	CString m_strDistFSPL;
+	CString m_strDistTxOutPower;
+	CString m_strDistPathLoss;
+	CString m_strDistTxAntGain;
+	CString m_strDistRxAntGain;
+	CString m_strDistRecvSigLev;
 
 	void L(const TCHAR* str, ...);
 	BOOL LoadValue(TCHAR* regTagName, CString* pTargetStr, CString fileName);
