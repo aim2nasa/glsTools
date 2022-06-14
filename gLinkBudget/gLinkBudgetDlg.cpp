@@ -373,13 +373,16 @@ void CgLinkBudgetDlg::OnNMCustomdrawLinkBudgetList(NMHDR* pNMHDR, LRESULT* pResu
 			nRow = (int)lplvcd->nmcd.dwItemSpec;	// 행 인덱스를 가져옴
 			nSub = (int)lplvcd->iSubItem;           // 열 인덱스를 가져옴
 
-			if (m_lbCtrl.GetItemText(nRow, nSub) == _T("O")) {
-				lplvcd->clrTextBk = RGB(0, 0, 255);
-				lplvcd->clrText = RGB(255, 255, 255);
-			}
-			else if (m_lbCtrl.GetItemText(nRow, nSub) == _T("X")) {
-				lplvcd->clrTextBk = RGB(255, 0, 0);
-				lplvcd->clrText = RGB(0, 0, 0);
+			if ((nRow >= 0 && nRow <= 8) && (nSub >= 2 && nSub <= 16)) {
+				double diff = _ttof(m_lbCtrl.GetItemText(nRow, nSub));
+				if (diff > 0.) {
+					lplvcd->clrTextBk = RGB(0, 0, 255);
+					lplvcd->clrText = RGB(255, 255, 255);
+				}
+				else {
+					lplvcd->clrTextBk = RGB(255, 0, 0);
+					lplvcd->clrText = RGB(0, 0, 0);
+				}
 			}
 		break;
 	default:
