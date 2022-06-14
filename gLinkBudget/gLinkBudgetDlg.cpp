@@ -525,6 +525,7 @@ void CgLinkBudgetDlg::OnNMClickFreeSpacePathLossList(NMHDR* pNMHDR, LRESULT* pRe
 		m_strSelectedStatic = m_fsplCtrl.GetItemText(idx, 0);
 		ShowSlider(SW_SHOW);
 		ShowParams(SW_SHOW);
+		calcLinkBudget(SliderValueUpdate());
 		UpdateData(FALSE);
 	}
 	else {
@@ -643,4 +644,19 @@ void CgLinkBudgetDlg::ShowParams(int nCmdShow)
 	GetDlgItem(IDC_DISTANCE_TX_ANT_GAIN_STATIC)->ShowWindow(nCmdShow);
 	GetDlgItem(IDC_DISTANCE_RX_ANT_GAIN_STATIC)->ShowWindow(nCmdShow);
 	GetDlgItem(IDC_DISTANCE_RECEIVER_SIGNAL_LEVEL_STATIC)->ShowWindow(nCmdShow);
+}
+
+void CgLinkBudgetDlg::calcLinkBudget(double dist)
+{
+	UpdateData(TRUE);
+
+	double freq = _ttof(m_strFrequency.GetBuffer());
+	double h20a = dist * _ttof(m_strH2OAtten.GetBuffer());
+	double fspl = 20. * log10(freq) + 20. * log10(dist / 1000.) + 92.4 + h20a;
+
+	m_strDistFreq.Format(_T("%.4f"), freq);
+	m_strDistH2OAtten.Format(_T("%.4f"), h20a);
+	m_strDistFSPL.Format(_T("%.4f"), fspl);
+
+	UpdateData(FALSE);
 }
