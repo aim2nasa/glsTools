@@ -567,6 +567,7 @@ void CgLinkBudgetDlg::OnHScroll(UINT nSBCode, UINT nPos, CScrollBar* pScrollBar)
 		UpdateData(TRUE);
 		if (m_strSelectedStatic == _T("Distance(m)")) {
 			calcRecvSigLev((double)curPos/10.);
+			drawChart();
 		}
 		else {
 			for (int i = 0; i < m_rslCtrl.GetItemCount(); i++) {
@@ -701,7 +702,6 @@ void CgLinkBudgetDlg::drawChart()
 
 	CChartStandardAxis* pLeftAxis = m_chart.CreateStandardAxis(CChartCtrl::LeftAxis);
 	pLeftAxis->SetMinMax(-30, 30);
-	pLeftAxis->SetAutomaticMode(CChartAxis::FullAutomatic);
 	pLeftAxis->GetLabel()->SetText(_T("margin"));
 	CChartStandardAxis* pBottomAxis = m_chart.CreateStandardAxis(CChartCtrl::BottomAxis);
 	pBottomAxis->SetMinMax(0, 10);
@@ -721,4 +721,16 @@ void CgLinkBudgetDlg::drawChart()
 	pLineSeries->AddPoint(8, 0);
 	pLineSeries->AddPoint(9, 0);
 	pLineSeries->AddPoint(10, 0);
+
+	CChartBarSerie* pBarSeries = m_chart.CreateBarSerie();
+	int curPos = SliderValueUpdate();
+	if (curPos == 0) return;
+
+	for (int i = 0; i < 9; i++) {
+		CString strVal = m_lbCtrl.GetItemText(i, 1);
+		double rsl = calcRecvSigLev((double)curPos / 10.);
+		double slv = _ttof(strVal.GetBuffer());
+		double margin = rsl - slv;
+		pBarSeries->AddPoint((double)(i+1), margin);
+	}
 }
