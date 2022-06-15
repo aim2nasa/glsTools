@@ -7,6 +7,9 @@
 #include "gLinkBudget.h"
 #include "gLinkBudgetDlg.h"
 #include "afxdialogex.h"
+#include "..\ChartCtrl\ChartBarSerie.h"
+#include "..\ChartCtrl\ChartLineSerie.h"
+#include "..\ChartCtrl\ChartAxisLabel.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -532,6 +535,7 @@ void CgLinkBudgetDlg::OnNMClickFreeSpacePathLossList(NMHDR* pNMHDR, LRESULT* pRe
 		ShowSlider(SW_SHOW);
 		ShowParams(SW_SHOW);
 		calcLinkBudget(SliderValueUpdate());
+		drawChart();
 		UpdateData(FALSE);
 	}
 	else {
@@ -660,6 +664,7 @@ void CgLinkBudgetDlg::ShowParams(int nCmdShow)
 	GetDlgItem(IDC_TX_ANT_GAIN_VALUE_STATIC)->ShowWindow(nCmdShow);
 	GetDlgItem(IDC_RX_ANT_GAIN_VALUE_STATIC)->ShowWindow(nCmdShow);
 	GetDlgItem(IDC_RECEIVER_SIGNAL_LEVEL_VALUE_STATIC)->ShowWindow(nCmdShow);
+	GetDlgItem(IDC_CHART)->ShowWindow(nCmdShow);
 }
 
 void CgLinkBudgetDlg::calcLinkBudget(double dist)
@@ -687,4 +692,29 @@ void CgLinkBudgetDlg::calcLinkBudget(double dist)
 	m_strDistRecvSigLev.Format(_T("%.4f"), rslv);
 
 	UpdateData(FALSE);
+}
+
+void CgLinkBudgetDlg::drawChart()
+{
+	CChartStandardAxis* pLeftAxis = m_chart.CreateStandardAxis(CChartCtrl::LeftAxis);
+	pLeftAxis->SetMinMax(-30, 30);
+	pLeftAxis->GetLabel()->SetText(_T("margin"));
+	CChartStandardAxis* pBottomAxis = m_chart.CreateStandardAxis(CChartCtrl::BottomAxis);
+	pBottomAxis->SetMinMax(0, 10);
+	pBottomAxis->SetTickIncrement(false, 1);
+	pBottomAxis->GetLabel()->SetText(_T("Gbps"));
+
+	CChartLineSerie* pLineSeries = m_chart.CreateLineSerie();
+	pLineSeries->SetColor(RGB(155, 0, 0));
+	pLineSeries->AddPoint(0, 0);
+	pLineSeries->AddPoint(1, 0);
+	pLineSeries->AddPoint(2, 0);
+	pLineSeries->AddPoint(3, 0);
+	pLineSeries->AddPoint(4, 0);
+	pLineSeries->AddPoint(5, 0);
+	pLineSeries->AddPoint(6, 0);
+	pLineSeries->AddPoint(7, 0);
+	pLineSeries->AddPoint(8, 0);
+	pLineSeries->AddPoint(9, 0);
+	pLineSeries->AddPoint(10, 0);
 }

@@ -93,4 +93,5 @@ public:
 	afx_msg void OnBnClickedGradientCheck();
 	void ShowParams(int nCmdShow);
 	void calcLinkBudget(double dist);
+	void drawChart();
 };
