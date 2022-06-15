@@ -617,7 +617,7 @@ void CChartCtrl::AttachCustomSerie(CChartSerie* pNewSeries,
 	}
 }
 
-CChartSerie* CChartCtrl::GetSerie(size_t uSerieId) const
+CChartSerie* CChartCtrl::GetSerie(unsigned uSerieId) const
 {
 	CChartSerie* pToReturn = NULL;
 	TSeriesMap::const_iterator iter = m_mapSeries.find(uSerieId);
