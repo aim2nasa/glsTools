@@ -534,7 +534,7 @@ void CgLinkBudgetDlg::OnNMClickFreeSpacePathLossList(NMHDR* pNMHDR, LRESULT* pRe
 		m_strSelectedStatic = m_fsplCtrl.GetItemText(idx, 0);
 		ShowSlider(SW_SHOW);
 		ShowParams(SW_SHOW);
-		calcLinkBudget(SliderValueUpdate());
+		calcRecvSigLev(SliderValueUpdate());
 		drawChart();
 		UpdateData(FALSE);
 	}
@@ -566,7 +566,7 @@ void CgLinkBudgetDlg::OnHScroll(UINT nSBCode, UINT nPos, CScrollBar* pScrollBar)
 
 		UpdateData(TRUE);
 		if (m_strSelectedStatic == _T("Distance(m)")) {
-			calcLinkBudget((double)curPos/10.);
+			calcRecvSigLev((double)curPos/10.);
 		}
 		else {
 			for (int i = 0; i < m_rslCtrl.GetItemCount(); i++) {
@@ -667,7 +667,7 @@ void CgLinkBudgetDlg::ShowParams(int nCmdShow)
 	GetDlgItem(IDC_CHART)->ShowWindow(nCmdShow);
 }
 
-void CgLinkBudgetDlg::calcLinkBudget(double dist)
+double CgLinkBudgetDlg::calcRecvSigLev(double dist)
 {
 	UpdateData(TRUE);
 
@@ -692,6 +692,7 @@ void CgLinkBudgetDlg::calcLinkBudget(double dist)
 	m_strDistRecvSigLev.Format(_T("%.4f"), rslv);
 
 	UpdateData(FALSE);
+	return rslv;
 }
 
 void CgLinkBudgetDlg::drawChart()

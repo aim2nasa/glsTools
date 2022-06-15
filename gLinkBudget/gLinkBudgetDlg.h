@@ -92,6 +92,6 @@ public:
 	void clearList();
 	afx_msg void OnBnClickedGradientCheck();
 	void ShowParams(int nCmdShow);
-	void calcLinkBudget(double dist);
+	double calcRecvSigLev(double dist);
 	void drawChart();
 };
