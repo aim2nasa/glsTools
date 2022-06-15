@@ -701,6 +701,7 @@ void CgLinkBudgetDlg::drawChart()
 
 	CChartStandardAxis* pLeftAxis = m_chart.CreateStandardAxis(CChartCtrl::LeftAxis);
 	pLeftAxis->SetMinMax(-30, 30);
+	pLeftAxis->SetAutomaticMode(CChartAxis::FullAutomatic);
 	pLeftAxis->GetLabel()->SetText(_T("margin"));
 	CChartStandardAxis* pBottomAxis = m_chart.CreateStandardAxis(CChartCtrl::BottomAxis);
 	pBottomAxis->SetMinMax(0, 10);
