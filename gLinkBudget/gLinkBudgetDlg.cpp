@@ -722,15 +722,23 @@ void CgLinkBudgetDlg::drawChart()
 	pLineSeries->AddPoint(9, 0);
 	pLineSeries->AddPoint(10, 0);
 
-	CChartBarSerie* pBarSeries = m_chart.CreateBarSerie();
 	int curPos = SliderValueUpdate();
 	if (curPos == 0) return;
+
+	CChartBarSerie* pBarPosSeries = m_chart.CreateBarSerie();
+	pBarPosSeries->SetColor(RGB(0, 0, 255));
+	pBarPosSeries->SetBorderColor(RGB(0, 0, 255));
+	pBarPosSeries->SetBarWidth(4);
+	CChartBarSerie* pBarNegSeries = m_chart.CreateBarSerie();
+	pBarNegSeries->SetColor(RGB(255, 0, 0));
+	pBarNegSeries->SetBorderColor(RGB(255, 0, 0));
+	pBarNegSeries->SetBarWidth(4);
 
 	for (int i = 0; i < 9; i++) {
 		CString strVal = m_lbCtrl.GetItemText(i, 1);
 		double rsl = calcRecvSigLev((double)curPos / 10.);
 		double slv = _ttof(strVal.GetBuffer());
-		double margin = rsl - slv;
-		pBarSeries->AddPoint((double)(i+1), margin);
+		double margin = rsl - slv;		
+		(margin > 0.) ? pBarPosSeries->AddPoint((double)(i + 1), margin) : pBarNegSeries->AddPoint((double)(i + 1), margin);
 	}
 }
