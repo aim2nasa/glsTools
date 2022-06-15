@@ -4,6 +4,7 @@
 
 #pragma once
 
+#include "..\ChartCtrl\ChartCtrl.h"
 
 // CgLinkBudgetDlg 대화 상자
 class CgLinkBudgetDlg : public CDialogEx
@@ -67,6 +68,7 @@ public:
 	CString m_strDistTxAntGain;
 	CString m_strDistRxAntGain;
 	CString m_strDistRecvSigLev;
+	CChartCtrl m_chart;
 
 	void L(const TCHAR* str, ...);
 	BOOL LoadValue(TCHAR* regTagName, CString* pTargetStr, CString fileName);

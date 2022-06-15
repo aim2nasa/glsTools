@@ -29,6 +29,7 @@
 #define IDC_FSPL_GROUP_STATIC           1018
 #define IDC_RSL_GROUP_STATIC            1019
 #define IDC_FREQUENCY_VALUE_STATIC      1020
+#define IDC_CHART                       1021
 #define IDC_H2OATTEN_VALUE_STATIC       1022
 #define IDC_FSPL_VALUE_STATIC           1023
 #define IDC_TXOP_VALUE_STATIC           1024
@@ -43,7 +44,7 @@
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        133
 #define _APS_NEXT_COMMAND_VALUE         32771
-#define _APS_NEXT_CONTROL_VALUE         1020
+#define _APS_NEXT_CONTROL_VALUE         1022
 #define _APS_NEXT_SYMED_VALUE           101
 #endif
 #endif
