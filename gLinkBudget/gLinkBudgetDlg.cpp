@@ -696,6 +696,8 @@ void CgLinkBudgetDlg::calcLinkBudget(double dist)
 
 void CgLinkBudgetDlg::drawChart()
 {
+	m_chart.RemoveAllSeries();
+
 	CChartStandardAxis* pLeftAxis = m_chart.CreateStandardAxis(CChartCtrl::LeftAxis);
 	pLeftAxis->SetMinMax(-30, 30);
 	pLeftAxis->GetLabel()->SetText(_T("margin"));
