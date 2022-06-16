@@ -468,16 +468,16 @@ void CgLinkBudgetDlg::OnNMClkReceiverSignalLevelList(NMHDR* pNMHDR, LRESULT* pRe
 	if (idx >= 0 && idx <= 3) {
 		switch (idx) {
 		case 0:	//Tx Output Power
-			SetControlSlider(10 * MinTxOutputPower, 10 * MaxTxOutputPower, m_strTxOutputPower, 10, 1, 10);
+			SetControlSlider(100 * MinTxOutputPower, 100 * MaxTxOutputPower, m_strTxOutputPower, 100, 1, 10, 100);
 			break;
 		case 1:	//Path Loss
-			SetControlSlider(10 * MinPathLoss, 10 * MaxPathLoss, m_strPathLoss, 10, 1, 10);
+			SetControlSlider(100 * MinPathLoss, 100 * MaxPathLoss, m_strPathLoss, 100, 1, 10, 100);
 			break;
 		case 2:	//Tx Antenna Gain
-			SetControlSlider(10 * MinTxAntennaGain, 10 * MaxTxAntennaGain, m_strTxAntennaGain, 10, 1, 10);
+			SetControlSlider(100 * MinTxAntennaGain, 100 * MaxTxAntennaGain, m_strTxAntennaGain, 100, 1, 10, 100);
 			break;
 		case 3:	//Rx Antenna Gain
-			SetControlSlider(10 * MinRxAntennaGain, 10 * MaxRxAntennaGain, m_strRxAntennaGain, 10, 1, 10);
+			SetControlSlider(100 * MinRxAntennaGain, 100 * MaxRxAntennaGain, m_strRxAntennaGain, 100, 1, 10, 100);
 			break;
 		default:
 			break;
@@ -495,17 +495,17 @@ void CgLinkBudgetDlg::OnNMClkReceiverSignalLevelList(NMHDR* pNMHDR, LRESULT* pRe
 	*pResult = 0;
 }
 
-void CgLinkBudgetDlg::SetControlSlider(int min, int max, CString strCurVal, int ticFreq, int lineSize, int pageSize)
+void CgLinkBudgetDlg::SetControlSlider(int min, int max, CString strCurVal, int ticFreq, int lineSize, int pageSize, int scale)
 {
 	int curVal = _tcstol(strCurVal.GetBuffer(), NULL, 10);
 
-	m_strSliderMin.Format(_T("Min:%d"), min/10);
-	m_strSliderMax.Format(_T("Max:%d"), max/10);
+	m_strSliderMin.Format(_T("Min:%d"), min/scale);
+	m_strSliderMax.Format(_T("Max:%d"), max/scale);
 
 	m_controlSlider.SetRange(min, max);
 	m_controlSlider.SetRangeMin(min);
 	m_controlSlider.SetRangeMax(max);
-	m_controlSlider.SetPos(curVal*10);
+	m_controlSlider.SetPos(curVal*scale);
 	m_controlSlider.SetTicFreq(ticFreq);
 	m_controlSlider.SetLineSize(lineSize);
 	m_controlSlider.SetPageSize(pageSize);
@@ -516,7 +516,7 @@ void CgLinkBudgetDlg::SetControlSlider(int min, int max, CString strCurVal, int 
 int CgLinkBudgetDlg::SliderValueUpdate()
 {
 	int curPos = m_controlSlider.GetPos();
-	m_strSliderValue.Format(_T("%.1f"), float(curPos)/10.);
+	m_strSliderValue.Format(_T("%.2f"), float(curPos) / 100.);
 	UpdateData(FALSE);
 	return curPos;
 }
@@ -530,11 +530,11 @@ void CgLinkBudgetDlg::OnNMClickFreeSpacePathLossList(NMHDR* pNMHDR, LRESULT* pRe
 	int idx = pNMListView->iItem;
 
 	if (idx==1) {	//Distance(m)
-		SetControlSlider(10 * MinDistance, 10 * MaxDistance, m_strDistance, 10, 1, 10);
+		SetControlSlider(100 * MinDistance, 100 * MaxDistance, m_strDistance, 10, 1, 10, 100);
 		m_strSelectedStatic = m_fsplCtrl.GetItemText(idx, 0);
 		ShowSlider(SW_SHOW);
 		ShowParams(SW_SHOW);
-		calcRecvSigLev(SliderValueUpdate());
+		calcRecvSigLev((double)SliderValueUpdate()/100.);
 		drawChart();
 		UpdateData(FALSE);
 	}
@@ -566,7 +566,7 @@ void CgLinkBudgetDlg::OnHScroll(UINT nSBCode, UINT nPos, CScrollBar* pScrollBar)
 
 		UpdateData(TRUE);
 		if (m_strSelectedStatic == _T("Distance(m)")) {
-			calcRecvSigLev((double)curPos/10.);
+			calcRecvSigLev((double)curPos/100.);
 			drawChart();
 		}
 		else {
@@ -605,7 +605,7 @@ void CgLinkBudgetDlg::OnHScroll(UINT nSBCode, UINT nPos, CScrollBar* pScrollBar)
 
 void CgLinkBudgetDlg::updateStrValue(CString& strValue, CListCtrl& listCtrl, int row, int curPos, int start, int end)
 {
-	strValue.Format(_T("%.1f"), float(curPos) / 10.);
+	strValue.Format(_T("%.2f"), float(curPos) / 100.);
 	for (int j = start; j <= end; j++) listCtrl.SetItemText(row, j, strValue);
 }
 
@@ -736,7 +736,7 @@ void CgLinkBudgetDlg::drawChart()
 
 	for (int i = 0; i < 9; i++) {
 		CString strVal = m_lbCtrl.GetItemText(i, 1);
-		double rsl = calcRecvSigLev((double)curPos / 10.);
+		double rsl = calcRecvSigLev((double)curPos / 100.);
 		double slv = _ttof(strVal.GetBuffer());
 		double margin = rsl - slv;		
 		(margin > 0.) ? pBarPosSeries->AddPoint((double)(i + 1), margin) : pBarNegSeries->AddPoint((double)(i + 1), margin);
