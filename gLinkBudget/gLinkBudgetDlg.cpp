@@ -105,6 +105,7 @@ BEGIN_MESSAGE_MAP(CgLinkBudgetDlg, CDialogEx)
 	ON_NOTIFY(NM_CLICK, IDC_LINK_BUDGET_LIST, &CgLinkBudgetDlg::OnNMClickLinkBudgetList)
 	ON_WM_HSCROLL()
 	ON_BN_CLICKED(IDC_GRADIENT_CHECK, &CgLinkBudgetDlg::OnBnClickedGradientCheck)
+	ON_NOTIFY(NM_CUSTOMDRAW, IDC_MARGIN_LIST, OnNMCustomdrawMarginList)
 END_MESSAGE_MAP()
 
 
@@ -753,5 +754,58 @@ void CgLinkBudgetDlg::drawChart()
 		int nItem = m_marginCtrl.InsertItem(i, str);
 		str.Format(_T("%.4f"),margin);
 		m_marginCtrl.SetItemText(nItem, 1, str);
+	}
+}
+
+void CgLinkBudgetDlg::OnNMCustomdrawMarginList(NMHDR* pNMHDR, LRESULT* pResult)
+{
+	LPNMLVCUSTOMDRAW  lplvcd = (LPNMLVCUSTOMDRAW)pNMHDR;
+
+	int nRow, nSub;
+	switch (lplvcd->nmcd.dwDrawStage)
+	{
+	case CDDS_PREPAINT:
+		*pResult = CDRF_NOTIFYITEMDRAW;				// 아이템외에 일반적으로 처리하는 부분
+		lplvcd->clrTextBk = RGB(0, 0, 255);
+		break;
+
+	case CDDS_ITEMPREPAINT:                         // 행 아이템에 대한 처리를 할 경우
+		*pResult = CDRF_NOTIFYSUBITEMDRAW;
+		break;
+
+	case CDDS_ITEMPREPAINT | CDDS_SUBITEM:			// 행과 열 아이템에 대한 처리를 할 경우
+		nRow = (int)lplvcd->nmcd.dwItemSpec;	// 행 인덱스를 가져옴
+		nSub = (int)lplvcd->iSubItem;           // 열 인덱스를 가져옴
+
+		if ((nRow >= 0 && nRow <= 8) && (nSub ==1)) {
+			double diff = _ttof(m_marginCtrl.GetItemText(nRow, nSub));
+
+			if (m_bGradient) {
+				if (diff > 0.) {
+					int nBlue = (int)(255. * (diff / _ttof(m_lbCtrl.GetItemText(0, 2))));
+					lplvcd->clrTextBk = RGB(255 - nBlue, 255 - nBlue, 255);
+					lplvcd->clrText = RGB(0, 0, 0);
+				}
+				else {
+					int nRed = (int)(255. * (diff / _ttof(m_lbCtrl.GetItemText(8, 16))));
+					lplvcd->clrTextBk = RGB(255, 255 - nRed, 255 - nRed);
+					lplvcd->clrText = RGB(0, 0, 0);
+				}
+			}
+			else {
+				if (diff > 0.) {
+					lplvcd->clrTextBk = RGB(0, 0, 255);
+					lplvcd->clrText = RGB(255, 255, 255);
+				}
+				else {
+					lplvcd->clrTextBk = RGB(255, 0, 0);
+					lplvcd->clrText = RGB(0, 0, 0);
+				}
+			}
+		}
+		break;
+	default:
+		*pResult = CDRF_DODEFAULT;
+		break;
 	}
 }

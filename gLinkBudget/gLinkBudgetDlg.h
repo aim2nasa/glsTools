@@ -95,4 +95,5 @@ public:
 	void ShowParams(int nCmdShow);
 	double calcRecvSigLev(double dist);
 	void drawChart();
+	afx_msg void OnNMCustomdrawMarginList(NMHDR* pNMHDR, LRESULT* pResult);
 };
