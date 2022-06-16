@@ -492,6 +492,7 @@ void CgLinkBudgetDlg::OnNMClkReceiverSignalLevelList(NMHDR* pNMHDR, LRESULT* pRe
 	else {
 		ShowSlider(SW_HIDE);
 		ShowParams(SW_HIDE);
+		if (idx == 4) L(_T("Receiver Signal Level = Tx Output Power + Tx Antenna Gain + Rx Antenna Gain - FSPL - Path Loss"));
 	}
 
 	*pResult = 0;
@@ -543,6 +544,19 @@ void CgLinkBudgetDlg::OnNMClickFreeSpacePathLossList(NMHDR* pNMHDR, LRESULT* pRe
 	else {
 		ShowSlider(SW_HIDE);
 		ShowParams(SW_HIDE);
+		switch (idx) {
+		case 0:
+			L(_T("Frequency can be changed in 'LinkBudget.ini'"));
+			break;
+		case 2:
+			L(_T("H2O attenuation coefficient can be changed in 'LinkBudget.ini'"));
+			break;
+		case 3:
+			L(_T("FSPL = 20*log10(Frequency) + 20*Log10(Distance) + 92.4 + H2O attenuation"));
+			break;
+		default:
+			break;
+		}
 	}
 
 	*pResult = 0;
