@@ -666,6 +666,7 @@ void CgLinkBudgetDlg::ShowParams(int nCmdShow)
 	GetDlgItem(IDC_RX_ANT_GAIN_VALUE_STATIC)->ShowWindow(nCmdShow);
 	GetDlgItem(IDC_RECEIVER_SIGNAL_LEVEL_VALUE_STATIC)->ShowWindow(nCmdShow);
 	GetDlgItem(IDC_CHART)->ShowWindow(nCmdShow);
+	GetDlgItem(IDC_MARGIN_LIST)->ShowWindow(nCmdShow);
 }
 
 double CgLinkBudgetDlg::calcRecvSigLev(double dist)
