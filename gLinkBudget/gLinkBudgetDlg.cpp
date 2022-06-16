@@ -644,6 +644,7 @@ void CgLinkBudgetDlg::OnBnClickedGradientCheck()
 
 	clearList();
 	fillLinkBudget(fillReceiverSignalLevel(fillFreeSpacePathLoss()));
+	drawChart();
 }
 
 void CgLinkBudgetDlg::ShowParams(int nCmdShow)
