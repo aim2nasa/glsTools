@@ -69,6 +69,7 @@ public:
 	CString m_strDistRxAntGain;
 	CString m_strDistRecvSigLev;
 	CChartCtrl m_chart;
+	CListCtrl m_marginCtrl;
 
 	void L(const TCHAR* str, ...);
 	BOOL LoadValue(TCHAR* regTagName, CString* pTargetStr, CString fileName);

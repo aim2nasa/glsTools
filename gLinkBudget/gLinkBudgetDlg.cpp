@@ -92,6 +92,7 @@ void CgLinkBudgetDlg::DoDataExchange(CDataExchange* pDX)
 	DDX_Text(pDX, IDC_RX_ANT_GAIN_VALUE_STATIC, m_strDistRxAntGain);
 	DDX_Text(pDX, IDC_RECEIVER_SIGNAL_LEVEL_VALUE_STATIC, m_strDistRecvSigLev);
 	DDX_Control(pDX, IDC_CHART, m_chart);
+	DDX_Control(pDX, IDC_MARGIN_LIST, m_marginCtrl);
 }
 
 BEGIN_MESSAGE_MAP(CgLinkBudgetDlg, CDialogEx)
