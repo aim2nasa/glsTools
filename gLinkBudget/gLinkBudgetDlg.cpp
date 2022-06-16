@@ -700,6 +700,8 @@ double CgLinkBudgetDlg::calcRecvSigLev(double dist)
 
 void CgLinkBudgetDlg::drawChart()
 {
+	m_marginCtrl.DeleteAllItems();
+	while (m_marginCtrl.DeleteColumn(0));
 	m_chart.RemoveAllSeries();
 
 	CChartStandardAxis* pLeftAxis = m_chart.CreateStandardAxis(CChartCtrl::LeftAxis);
@@ -736,11 +738,20 @@ void CgLinkBudgetDlg::drawChart()
 	pBarNegSeries->SetBorderColor(RGB(255, 0, 0));
 	pBarNegSeries->SetBarWidth(4);
 
+	m_marginCtrl.InsertColumn(0, _T("Gbps"), LVCFMT_LEFT, 40);
+	m_marginCtrl.InsertColumn(1, _T("Margin"), LVCFMT_LEFT, 65);
+
 	for (int i = 0; i < 9; i++) {
 		CString strVal = m_lbCtrl.GetItemText(i, 1);
 		double rsl = calcRecvSigLev((double)curPos / 100.);
 		double slv = _ttof(strVal.GetBuffer());
 		double margin = rsl - slv;		
 		(margin > 0.) ? pBarPosSeries->AddPoint((double)(i + 1), margin) : pBarNegSeries->AddPoint((double)(i + 1), margin);
+
+		CString str;
+		str.Format(_T("%d"),i+1);
+		int nItem = m_marginCtrl.InsertItem(i, str);
+		str.Format(_T("%.4f"),margin);
+		m_marginCtrl.SetItemText(nItem, 1, str);
 	}
 }
